@@ -1,142 +1,131 @@
-# Football Match Digital Twin & Simulation System V1（足球沙盘推演系统）
+# ⚽ football-prediction · 赛前一键预测 WebApp
 
-> **Predict less, simulate more.** 先问「比赛可能如何发展」，再问「每条路径有多大可能」，最后从所有路径统计出概率。
+**打开页面 → 选一场未开赛的比赛 → 点一下 → 胜平负概率、比分概率矩阵、爆冷预警、伤停名单一次出全。**
 
-这是一个**比赛沙盘推演引擎**，而不是传统的「输入数据 → 输出主胜63%」黑盒预测器：
+一个可本地运行的足球赛前预测工作台：自动采集真实赛程与多庄家赔率，用已验证的市场基线模型（Shin 去水）输出概率，并推导比分概率矩阵与爆冷风险；伤停名单作为外部情报展示。全程可溯源，每一步都有证据等级标注。
 
-## 研究主线地图（两套系统，勿混淆）
+<p align="center">
+  <img src="docs/images/screenshot-matrix.png" width="80%" alt="比分概率矩阵界面">
+</p>
 
-本仓库包含**两套相互独立的系统**，回答两类不同的问题：
+---
 
-| | 系统 A：沙盘模拟引擎 | 系统 B：时间安全预测研究主线 |
+## 它能做什么
+
+对**未开赛**的比赛，一键输出：
+
+| 输出 | 来源 | 性质 |
 |---|---|---|
-| 位置 | `src/football_simulation/` | `backtest_output/`（Phase 2A → 5.3） |
-| 数据 | 合成 mock（`is_synthetic=true`） | 真实历史冻结集 v1.1.0 + 前向采集 |
-| 回答的问题 | "比赛可能如何发展"（过程模拟） | "胜/平/负与大小球概率多少"（预测，严格时间安全） |
-| 预测地位 | **不是**预测器：35 条规则全 tentative，概率输出是模拟产物 | 唯一已验证预测器 = 市场基线 M4/O2（`src/football_prediction`，冻结集 test split 3504 场与 Phase4A 0 mismatch） |
-| 当前位置 | V1.2 完成，无后续计划 | Phase 5.3-P1-C：Understat forward xG 累积中（time_safe 207 场，门槛 ≥300/联赛-季 × 5 + 完整赛季） |
+| **胜平负概率**（1X2） | 多庄家赔率 → Shin 去水（`M4`，多书均值；回退 `M2` 单书） | 已验证基线（3504 场冻结测试集 + Phase 4A 零不匹配） |
+| **大小球 2.5**（O/U） | B365 盘口对 Shin 去水（`O2`；回退多书 `O4`） | 已验证基线 |
+| **比分概率矩阵** | 去水概率的 Dixon-Coles 双变量泊松重参数化 + raking，聚合量与去水概率精确一致（≤1e-9） | 派生（Derived） |
+| **爆冷风险预警** | 相对赛前概率的冷门等级/方向/严重度（阈值对齐沙盘引擎的 UpsetRiskAgent）+ 市场分歧、极端冷门比分 | 派生（Derived） |
+| **伤停情报** | API-Football 真实缺阵名单（主/客分列） | 外部信号，只展示不改概率 |
+| **溯源面板** | shin_z、overround、庄家清单、时间安全状态、置信分级、完整 JSON | 全程可审计 |
 
-**阅读指引**：想了解预测研究现状，从 `backtest_output/experiments/phase5_review/PHASE5_REVIEW_ARCHITECTURE_AND_ROADMAP.md`、根目录 `CURRENT_SYSTEM_AUDIT.md`、`PREDICTION_MATRIX.md` 开始；想一键预测未开赛的比赛（胜平负概率 + 比分概率矩阵），见 **[一键赛前预测 WebApp](docs/PREDICTION_WEBAPP.md)**（`python -m football_prediction.cli serve`）；本 README 其余部分描述的是系统 A。
-
-**系统 B 当前硬门槛**：每联赛 ≥300 场 time_safe + 完整一赛季 → 预注册增量实验 → 通过全部预注册门槛后才允许任何信号进入预测；市场外信号（xG/lineup）目前均为候选/未验证状态。
-
-```
-Data → World Model → Team/Coach/Player/Tactical State
-     → Scenario Generation → State Transition → Event Simulation
-     → Monte Carlo Aggregation → Probability Output → Risk / Explanation
-```
+<p align="center">
+  <img src="docs/images/screenshot-upset-injuries.png" width="80%" alt="爆冷预警与伤停情报卡片">
+</p>
 
 ## 快速开始
 
 ```bash
-# 依赖：Python 3.10+、pydantic>=2、numpy（已内置所需的一切，无其它强制依赖）
-pip install pydantic numpy          # 仅当尚未安装
+# 依赖：Python 3.10+，pydantic、numpy
+pip install pydantic numpy
 
-# 生成合成 mock 数据（fixtures，仅用于开发/测试）
-python scripts/generate_fixtures.py
-
-# CLI
-python -m football_simulation.cli analyze match-demo-001 --runs 10000
-python -m football_simulation.cli simulate match-demo-001 --runs 10000
-python -m football_simulation.cli scenarios match-demo-001
-python -m football_simulation.cli trace match-demo-001
-python -m football_simulation.cli post-match match-demo-000
-python -m football_simulation.cli validate          # V1.1 Football Reality Validation 面板
-python -m football_simulation.cli backtest --seasons 2023-24 2024-25 --runs 1000   # V1.2 walk-forward 回测
-python -m football_simulation.cli audit-leakage      # V1.2 泄漏审计（FAIL 时禁止正式回测）
-python -m football_simulation.cli backfill-evidence  # V1.2 规则证据回填（合成数据不写入）
-python -m football_simulation.cli experiments        # V1.2 实验注册表
-python -m football_simulation.cli demo
-python -m football_simulation.cli api --port 8000
-
-# 测试
-python -m unittest discover -s tests
+# 启动
+python -m football_prediction.cli serve --port 8600
+# 浏览器打开 http://127.0.0.1:8600
 ```
 
-安装为命令行工具（可选）：
+Windows 下也可以直接双击仓库里的 `start_prediction.bat`（自动起服务 + 打开浏览器）。
+
+不配任何 API key 也能用：赛程与 DraftKings 赔率来自 ESPN（免费、无 key）。接入以下 key 后自动增强：
+
+| 数据源 | 用途 | 免费额度 | 配置 |
+|---|---|---|---|
+| [the-odds-api](https://the-odds-api.com) | 多庄家赔率（Pinnacle/William Hill/Ladbrokes 等 40+ 家） | 500 credits/月（每次预测 4） | `echo 你的key > config/odds_api.key` |
+| [API-Football](https://www.api-sports.io) | 伤停/停赛名单 | 100 请求/天（每次预测 2） | `echo 你的key > config/api_football.key` |
+| ESPN | 赛程 + 基础赔率 | 免费，无需 key | — |
+
+key 文件已被 `.gitignore` 排除，不会入库。
+
+## 工作原理
+
+```
+ESPN 赛程 ──► 状态门（只放行未开赛）──► 赔率采集（ESPN + the-odds-api 多书合并）
+                                              │
+                                              ▼
+                              prediction_input.v1（时间安全：retrieved_at < 开球）
+                                              │
+                                              ▼
+                     冻结预测器 predict_match（Shin 去水，P1–P6 不变量）
+                                              │
+                        ┌─────────────────────┼─────────────────────┐
+                        ▼                     ▼                     ▼
+                   比分概率矩阵           爆冷风险预警          伤停外部信号
+                （Dixon-Coles 推导）   （Derived，不改概率）  （门控，永不改概率）
+```
+
+**诚实的置信分级**：概率数字之外，系统明确告诉你输入质量——`VALID`（≥4 家庄家、含 B365、无回退）→ `HIGH` 置信；单庄家回退链（当前 ESPN 只有 DraftKings 一家）会如实降级为 `CONDITIONAL` / 置信 `LOW`。**LOW 不代表数字不可信**，它说明"只有一家定价、缺乏跨庄家一致性证据"。
+
+**三条铁律**（冻结管线的 P1–P6 不变量，代码层强制）：
+
+1. 概率只来自去水，缺失赔率输出空值，绝不伪造；
+2. 外部信号（伤停、xG 等）**永不修改概率**，状态封顶"可用未验证"；
+3. 每个输出带证据等级（Evidence / Derived / Hypothesis）与完整溯源。
+
+## HTTP API
 
 ```bash
-pip install -e .
-football analyze match-demo-001 --runs 10000
+GET  /api/health                 # 服务状态 + 数据源配置情况
+GET  /api/fixtures?refresh=1     # 未开赛赛程（ESPN，未来 3 天）
+POST /api/predict                # {"event_id":"...", "force":false}
 ```
 
-## 输出示例（标准 V1 输出）
+`POST /api/predict` 错误码：`404 EVENT_NOT_FOUND`、`409 MATCH_NOT_PRE`（已开赛，时间安全门拦截）、`409 NO_ODDS`、`502 ESPN_UNREACHABLE`。10 分钟内同场重复预测走缓存（0 配额消耗）。
 
-* **胜平负**：主胜 / 平局 / 客胜（内部 0~1，展示层转百分比）
-* **最可能比分** Top 10（0~6+ 截断的完整比分矩阵）
-* **大小球**：O/U 0.5 ~ 5.5 六条线 + 期望总进球
-* **BTTS**：Yes / No
-* **半全场**：9 种组合 + 半场 1X2
-* **最可能比赛剧本** Top 5（带概率、时间线、关键事件、比分路径）
-* **爆冷风险**：低 / 中 / 高 / 极高 + 爆冷方向 + 概率 + 原因 Top 5
-* **风险分解**：阵容 / 伤病 / 体能 / 战术 / 心理 / 裁判 / 天气 / 模型不确定性 / 剧本离散度 / 数据质量
-* **预测失效条件**、**Confidence**（High/Medium/Low + 理由）、**Reasoning Trace**
+## 仓库里还有什么
 
-## 核心设计
-
-| 层 | 组件 |
-| --- | --- |
-| 世界模型 | `WorldState`（强类型 Pydantic，每次状态转换产生带版本号的新快照） |
-| 知识层 | `KnowledgeBase` + `RuleEngine`（足球知识是**数据**，不是代码；UNVERIFIED/TENTATIVE/VALIDATED/DEPRECATED 生命周期） |
-| 数据层 | `DataProvider` 标准接口 + `PreMatchFreeze`（赛前冻结，杜绝未来信息泄漏）+ 合成 Mock Provider |
-| 状态机 | `StateTransitionAgent`（进球/红牌/点球/伤病/换人/半场 → 重算 WorldState） |
-| 事件引擎 | `EventTriggerAgent`（事件概率由状态共同决定，受 Event Dependency Rules 约束） |
-| 模拟引擎 | `MatchSimulationEngine.simulate_match(seed)` / `simulate_n_matches(n)`（可复现、收敛检测、支持 1k~100k） |
-| 场景引擎 | `MatchScriptAgent`（从模拟结果聚类为剧本）+ `ScenarioRankingAgent`（保留长尾） |
-| 概率层 | 胜平负 / 比分矩阵 / O-U / BTTS / 半全场 —— **全部从模拟结果统计**，无独立预测 |
-| 风险层 | Upset（相对赛前概率定义）/ 分解风险 / Confidence（剧本集中度等） |
-| 学习层 | `LearningAgent`（只写记录与 **Candidate Rule**，绝不自动改核心规则）+ `PostMatchEvaluationAgent` |
-| 编排 | `DirectorAgent`（调度、协调、冲突处理、质量控制）+ `OpinionFusionLayer` |
-
-## Agent 清单（V1 全部实现）
-
-Team / Coach / Player / Lineup / Fitness / Psychology / Environment / Referee /
-TacticalMatchup / Opening / Possession / Space / Tempo / Momentum /
-EventTrigger / Substitution / StateTransition / MatchScript / ScenarioRanking /
-Counterfactual / ResultProbability / ScoreProbability / GoalsOU / HTFT /
-UpsetRisk / Risk / Confidence / Explanation / Learning / PostMatchEvaluation /
-Director。
-
-所有 Agent 无状态（输入 WorldState → 输出 `AgentResult`），由 Director 统一调度，互不直接调用。
-
-## 数据说明
-
-* V1 **不实现**数据采集（爬虫/API/供应商），只定义标准 `DataProvider` 接口。
-* 仓库内置的是**合成 mock 数据**（`scripts/generate_fixtures.py` 生成），只用于开发与测试，不含任何真实足球统计。
-* 联赛集合是**数据**（`competitions.json`），内置五大联赛并预留葡超/荷甲/欧冠/欧联/欧协联/国家队，扩展无需改代码。
-* 未知数据一律 `unknown`，绝不伪造；数据质量直接影响 Confidence。
-
-## 架构文档
-
-* [架构总览](docs/architecture.md)
-* [Agent 详解](docs/agents.md)
-* [知识层与规则引擎](docs/knowledge.md)
-* [使用指南（CLI / API / 配置）](docs/usage.md)
-* **[V1.1 足球真实性验证报告](docs/V1_1_REALITY_VALIDATION_REPORT.md)**（规则审计、因果方向、异常检测、Agent 贡献、修复的 9 处因果链缺陷、`REAL_DATA_READY=false`）
-* **[V1.2 历史回测与数据完整性报告](docs/V1_2_HISTORICAL_BACKTEST_REPORT.md)**（HistoricalMatch schema、PreMatchFreeze 2.0、时间旅行与泄漏审计、6 基准、walk-forward 回测、五级规则证据、反例库、实验注册表）
-
-## V1.2 现状声明
-
-* 本环境**无网络**，真实英超数据未能获取；`football backtest` 使用**明确标注的合成开发数据**（每条 `is_synthetic=true`），数字不代表任何真实预测能力。
-* 真实数据就绪路径：下载 football-data.co.uk 的 `E0.csv` → `CsvFootballDataCoUkSource` 导入 → 同一命令直接跑正式回测。
-* 判定：**NO EVIDENCE OF EDGE**（未在真实数据上评估）；`REAL_DATA_READY=false`。
-* 数据完整性：`audit-leakage` 7 项 PASS；时间旅行测试位一致；合成数据**永远不能写入规则证据/状态**（35 条规则保持 tentative、0 证据）。
-* `REAL_DATA_READY = false`：真实数据 Provider / 历史回测 / 泄漏审计 / 校准 / Brier / LogLoss / ROI / 基准对比 9 个门槛全部未完成。
-* 全部 35 条知识规则为 `assumption`（开发期假设），**0 条 validated** —— 任何概率输出都不是真实预测。
-* 不接入博彩/下注功能；ROI 仅作为观察指标，禁止按结果调参。
-
-## 目录结构
+这是一个双系统仓库，预测工作台是面向使用者的主入口；仓库同时包含一个**沙盘模拟引擎**（`src/football_simulation/`：世界模型 + 35 条知识规则 + 蒙特卡洛比赛推演，全部运行在合成数据上，35 条规则均为 tentative——它是研究脚手架，不是预测器）。预测器与沙盘严格隔离，后者不影响任何真实概率输出。
 
 ```
-src/football_simulation/
-├── agents/        # 全部 Agent（base/director/team/.../fusion）
-├── core/          # rule_engine / state_machine / event_engine / scenario_engine / simulation_engine / rng
-├── models/        # 强类型领域模型（WorldState、实体、事件、场景、报告）
-├── knowledge/     # 知识包（规则/战术模式/事件基线参数，JSON）
-├── data/          # DataProvider 接口、冻结门、竞赛注册表、Mock Provider + fixtures + historical/（V1.2 schema/快照/特征/数据源）
-├── backtest/      # V1.2 回测（基准/指标/runner/实验注册表/泄漏审计/失败分析）
-├── evaluation/    # 学习/赛后评估 + V1.1 真实性验证 + V1.2 规则证据回填/反例库
-├── app/           # HTTP API（纯标准库实现）
-├── cli.py         # 命令行
-└── config.py      # 配置系统（config/default.json）
+src/
+├── football_prediction/     # 预测管线（本页主角）
+│   ├── predictor.py         #   冻结预测器（Shin 去水 + P1–P6）
+│   ├── score_matrix.py      #   比分概率矩阵（Dixon-Coles + raking）
+│   ├── upset_risk.py        #   爆冷风险（阈值对齐 UpsetRiskAgent）
+│   ├── odds_feed.py         #   ESPN 赛程/赔率适配器
+│   ├── odds_api.py          #   the-odds-api 多庄家适配器
+│   ├── injuries_feed.py     #   API-Football 伤停适配器
+│   ├── signals.py           #   外部信号门控（P3）
+│   ├── service.py           #   编排（采集→预测→增强→审计日志）
+│   ├── webapp.py            #   HTTP 服务（纯标准库）
+│   └── static/index.html    #   前端单页（零构建）
+└── football_simulation/     # 沙盘模拟引擎（研究脚手架，合成数据）
+docs/                        # 架构/规范/验证报告（PREDICTION_WEBAPP.md 从这开始）
+backtest_output/dataset_build/freeze/1.1.0/   # 冻结数据集 v1.1.0（预测器自检依赖）
+tests/                       # 95+ 单测（含 P3 概率不变断言）
 ```
+
+## 测试
+
+```bash
+python -m pytest tests -q -m "not slow"
+```
+
+核心断言举例：比分矩阵聚合量与去水概率逐位一致；有无伤停信号时预测输出**逐位相等**（P3）；开赛后赔率触发时间安全拒绝；爆冷等级阈值与系统 A 逐例对齐。
+
+## 文档
+
+- [一键预测 WebApp 使用与设计](docs/PREDICTION_WEBAPP.md)（API、key 配置、诚实性设计）
+- [预测模块规范](docs/PREDICTION_MODULE_SPEC.md) · [预测矩阵与不变量](docs/PREDICTION_MATRIX.md)
+- [架构总览](docs/architecture.md) · [沙盘引擎 V1.1 真实性验证](docs/V1_1_REALITY_VALIDATION_REPORT.md) · [V1.2 回测报告](docs/V1_2_HISTORICAL_BACKTEST_REPORT.md)
+
+## 声明
+
+本项目仅供研究学习。输出是**市场隐含概率及其派生量**，不构成任何投注建议；禁止用于博彩。数据来自 ESPN、the-odds-api、API-Football 公开接口，版权归各自所有者。
+
+## License
+
+[MIT](LICENSE)
