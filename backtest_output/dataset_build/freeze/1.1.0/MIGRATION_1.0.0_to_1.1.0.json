@@ -1,0 +1,152 @@
+[
+ {
+  "v1.0.0_row": {
+   "league": "I1",
+   "home_team": "Atalanta",
+   "away_team": "Inter",
+   "kickoff_date": "2020-08-01",
+   "source_file": "I119.csv",
+   "source_row": 373,
+   "old_season": "2020-21"
+  },
+  "new_season": "2019-20",
+  "reason": "Serie A 2019-20 final round postponed to 2020-08-01/02 (COVID); source filename I119.csv = 2019-20 is authoritative",
+  "rule": "source filename season > match date heuristic",
+  "evidence": "SEASON_BOUNDARY_ADDENDUM.md / SEASON_BOUNDARY_CASES.json"
+ },
+ {
+  "v1.0.0_row": {
+   "league": "I1",
+   "home_team": "Brescia",
+   "away_team": "Sampdoria",
+   "kickoff_date": "2020-08-01",
+   "source_file": "I119.csv",
+   "source_row": 372,
+   "old_season": "2020-21"
+  },
+  "new_season": "2019-20",
+  "reason": "Serie A 2019-20 final round postponed to 2020-08-01/02 (COVID); source filename I119.csv = 2019-20 is authoritative",
+  "rule": "source filename season > match date heuristic",
+  "evidence": "SEASON_BOUNDARY_ADDENDUM.md / SEASON_BOUNDARY_CASES.json"
+ },
+ {
+  "v1.0.0_row": {
+   "league": "I1",
+   "home_team": "Juventus",
+   "away_team": "Roma",
+   "kickoff_date": "2020-08-01",
+   "source_file": "I119.csv",
+   "source_row": 374,
+   "old_season": "2020-21"
+  },
+  "new_season": "2019-20",
+  "reason": "Serie A 2019-20 final round postponed to 2020-08-01/02 (COVID); source filename I119.csv = 2019-20 is authoritative",
+  "rule": "source filename season > match date heuristic",
+  "evidence": "SEASON_BOUNDARY_ADDENDUM.md / SEASON_BOUNDARY_CASES.json"
+ },
+ {
+  "v1.0.0_row": {
+   "league": "I1",
+   "home_team": "Milan",
+   "away_team": "Cagliari",
+   "kickoff_date": "2020-08-01",
+   "source_file": "I119.csv",
+   "source_row": 375,
+   "old_season": "2020-21"
+  },
+  "new_season": "2019-20",
+  "reason": "Serie A 2019-20 final round postponed to 2020-08-01/02 (COVID); source filename I119.csv = 2019-20 is authoritative",
+  "rule": "source filename season > match date heuristic",
+  "evidence": "SEASON_BOUNDARY_ADDENDUM.md / SEASON_BOUNDARY_CASES.json"
+ },
+ {
+  "v1.0.0_row": {
+   "league": "I1",
+   "home_team": "Napoli",
+   "away_team": "Lazio",
+   "kickoff_date": "2020-08-01",
+   "source_file": "I119.csv",
+   "source_row": 376,
+   "old_season": "2020-21"
+  },
+  "new_season": "2019-20",
+  "reason": "Serie A 2019-20 final round postponed to 2020-08-01/02 (COVID); source filename I119.csv = 2019-20 is authoritative",
+  "rule": "source filename season > match date heuristic",
+  "evidence": "SEASON_BOUNDARY_ADDENDUM.md / SEASON_BOUNDARY_CASES.json"
+ },
+ {
+  "v1.0.0_row": {
+   "league": "I1",
+   "home_team": "Bologna",
+   "away_team": "Torino",
+   "kickoff_date": "2020-08-02",
+   "source_file": "I119.csv",
+   "source_row": 378,
+   "old_season": "2020-21"
+  },
+  "new_season": "2019-20",
+  "reason": "Serie A 2019-20 final round postponed to 2020-08-01/02 (COVID); source filename I119.csv = 2019-20 is authoritative",
+  "rule": "source filename season > match date heuristic",
+  "evidence": "SEASON_BOUNDARY_ADDENDUM.md / SEASON_BOUNDARY_CASES.json"
+ },
+ {
+  "v1.0.0_row": {
+   "league": "I1",
+   "home_team": "Genoa",
+   "away_team": "Verona",
+   "kickoff_date": "2020-08-02",
+   "source_file": "I119.csv",
+   "source_row": 379,
+   "old_season": "2020-21"
+  },
+  "new_season": "2019-20",
+  "reason": "Serie A 2019-20 final round postponed to 2020-08-01/02 (COVID); source filename I119.csv = 2019-20 is authoritative",
+  "rule": "source filename season > match date heuristic",
+  "evidence": "SEASON_BOUNDARY_ADDENDUM.md / SEASON_BOUNDARY_CASES.json"
+ },
+ {
+  "v1.0.0_row": {
+   "league": "I1",
+   "home_team": "Lecce",
+   "away_team": "Parma",
+   "kickoff_date": "2020-08-02",
+   "source_file": "I119.csv",
+   "source_row": 380,
+   "old_season": "2020-21"
+  },
+  "new_season": "2019-20",
+  "reason": "Serie A 2019-20 final round postponed to 2020-08-01/02 (COVID); source filename I119.csv = 2019-20 is authoritative",
+  "rule": "source filename season > match date heuristic",
+  "evidence": "SEASON_BOUNDARY_ADDENDUM.md / SEASON_BOUNDARY_CASES.json"
+ },
+ {
+  "v1.0.0_row": {
+   "league": "I1",
+   "home_team": "Sassuolo",
+   "away_team": "Udinese",
+   "kickoff_date": "2020-08-02",
+   "source_file": "I119.csv",
+   "source_row": 381,
+   "old_season": "2020-21"
+  },
+  "new_season": "2019-20",
+  "reason": "Serie A 2019-20 final round postponed to 2020-08-01/02 (COVID); source filename I119.csv = 2019-20 is authoritative",
+  "rule": "source filename season > match date heuristic",
+  "evidence": "SEASON_BOUNDARY_ADDENDUM.md / SEASON_BOUNDARY_CASES.json"
+ },
+ {
+  "v1.0.0_row": {
+   "league": "I1",
+   "home_team": "Spal",
+   "away_team": "Fiorentina",
+   "kickoff_date": "2020-08-02",
+   "source_file": "I119.csv",
+   "source_row": 377,
+   "old_season": "2020-21"
+  },
+  "new_season": "2019-20",
+  "reason": "Serie A 2019-20 final round postponed to 2020-08-01/02 (COVID); source filename I119.csv = 2019-20 is authoritative",
+  "rule": "source filename season > match date heuristic",
+  "evidence": "SEASON_BOUNDARY_ADDENDUM.md / SEASON_BOUNDARY_CASES.json"
+ }
+]

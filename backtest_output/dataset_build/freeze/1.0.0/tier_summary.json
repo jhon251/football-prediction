@@ -1,0 +1,10 @@
+{
+ "tier_date_only_rows": 7304,
+ "tier_datetime_rows": 12459,
+ "datetime_with_utc": 12459,
+ "datetime_missing_time": 0,
+ "odds_coverage": {
+  "rows_with_any_preclosing": 19762,
+  "rows_with_any_closing": 19763
+ }
+}

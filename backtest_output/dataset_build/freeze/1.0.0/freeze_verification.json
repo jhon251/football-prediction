@@ -1,0 +1,19 @@
+{
+ "status": "FROZEN",
+ "checks": {
+  "dataset_exists": true,
+  "row_count": 19763,
+  "row_count_match": true,
+  "row_checksum_match": true,
+  "rows_valid_json_and_schema": true,
+  "tier_counts": {
+   "TIER_DATE_ONLY": 7304,
+   "TIER_DATETIME": 12459
+  },
+  "all_source_files_in_manifest": true,
+  "source_files_verified": "55/55",
+  "source_files_unchanged": true,
+  "schema_fingerprint_match": true,
+  "spot_check_3_rows": true
+ }
+}

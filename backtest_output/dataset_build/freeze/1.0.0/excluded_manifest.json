@@ -1,0 +1,70 @@
+[
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\sp121.csv",
+  "reason": "mislabeled: I1 2021-22 (SHA256 == I121.csv)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\sp122.csv",
+  "reason": "mislabeled: I1 2022-23 (SHA256 == I122.csv)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\sp123.csv",
+  "reason": "mislabeled: I1 2023-24 (SHA256 == I123.csv)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X20~21.csv",
+  "reason": "duplicate of sp120.csv (SP1 2020-21)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X24~25.csv",
+  "reason": "duplicate of sp124.csv (SP1 2024-25)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X25~26.csv",
+  "reason": "duplicate of sp125.csv (SP1 2025-26)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\E0.csv",
+  "reason": "duplicate of E025csv.csv (E0 2025-26)"
+ },
+ {
+  "path": "C:\\football\\data\\historical\\raw\\E0.csv",
+  "reason": "duplicate of E025csv.csv (E0 2025-26)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\E0 26.csv",
+  "reason": "mislabeled: E1 (Championship) 2026-27, not E0"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X26~27.csv",
+  "reason": "subset of SP126.csv (SP1 2026-27 in-progress, 5 rows <= 7 rows)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X2021.csv",
+  "reason": "SP2 (out of 5-league scope)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X2122.csv",
+  "reason": "SP2 duplicate of X2021 (out of scope)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X2223.csv",
+  "reason": "SP2 (out of scope)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X2324.csv",
+  "reason": "SP2 (out of scope)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X2425.csv",
+  "reason": "SP2 (out of scope)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X2526.csv",
+  "reason": "SP2 (out of scope)"
+ },
+ {
+  "path": "C:\\Users\\dua lang\\Documents\\X26`27.csv",
+  "reason": "SP2 2026-27 (out of scope)"
+ }
+]

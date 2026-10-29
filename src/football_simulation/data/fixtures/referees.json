@@ -1,0 +1,101 @@
+{
+  "note": "SYNTHETIC MOCK DATA",
+  "referees": [
+    {
+      "referee_id": "ref-00",
+      "name": "R. Keller",
+      "competition_id": "premier_league",
+      "yellow_card_tendency": 0.458,
+      "red_card_tendency": 0.454,
+      "penalty_tendency": 0.554,
+      "foul_tolerance": 0.461,
+      "advantage_play": 0.423,
+      "var_interaction": 0.482,
+      "matches_officiated": 101
+    },
+    {
+      "referee_id": "ref-01",
+      "name": "M. Dupont",
+      "competition_id": "premier_league",
+      "yellow_card_tendency": 0.397,
+      "red_card_tendency": 0.445,
+      "penalty_tendency": 0.479,
+      "foul_tolerance": 0.38,
+      "advantage_play": 0.517,
+      "var_interaction": 0.639,
+      "matches_officiated": 123
+    },
+    {
+      "referee_id": "ref-02",
+      "name": "A. Rossi",
+      "competition_id": "premier_league",
+      "yellow_card_tendency": 0.455,
+      "red_card_tendency": 0.434,
+      "penalty_tendency": 0.46,
+      "foul_tolerance": 0.49,
+      "advantage_play": 0.509,
+      "var_interaction": 0.592,
+      "matches_officiated": 114
+    },
+    {
+      "referee_id": "ref-03",
+      "name": "J. Van Dijk",
+      "competition_id": "premier_league",
+      "yellow_card_tendency": 0.613,
+      "red_card_tendency": 0.415,
+      "penalty_tendency": 0.482,
+      "foul_tolerance": 0.597,
+      "advantage_play": 0.518,
+      "var_interaction": 0.503,
+      "matches_officiated": 199
+    },
+    {
+      "referee_id": "ref-04",
+      "name": "P. Garc\u00eda",
+      "competition_id": "premier_league",
+      "yellow_card_tendency": 0.546,
+      "red_card_tendency": 0.51,
+      "penalty_tendency": 0.56,
+      "foul_tolerance": 0.486,
+      "advantage_play": 0.467,
+      "var_interaction": 0.611,
+      "matches_officiated": 87
+    },
+    {
+      "referee_id": "ref-05",
+      "name": "S. Weber",
+      "competition_id": "premier_league",
+      "yellow_card_tendency": 0.547,
+      "red_card_tendency": 0.432,
+      "penalty_tendency": 0.509,
+      "foul_tolerance": 0.46,
+      "advantage_play": 0.588,
+      "var_interaction": 0.685,
+      "matches_officiated": 189
+    },
+    {
+      "referee_id": "ref-06",
+      "name": "L. Fontaine",
+      "competition_id": "premier_league",
+      "yellow_card_tendency": 0.617,
+      "red_card_tendency": 0.441,
+      "penalty_tendency": 0.389,
+      "foul_tolerance": 0.433,
+      "advantage_play": 0.479,
+      "var_interaction": 0.559,
+      "matches_officiated": 255
+    },
+    {
+      "referee_id": "ref-07",
+      "name": "G. Moretti",
+      "competition_id": "premier_league",
+      "yellow_card_tendency": 0.503,
+      "red_card_tendency": 0.426,
+      "penalty_tendency": 0.463,
+      "foul_tolerance": 0.528,
+      "advantage_play": 0.586,
+      "var_interaction": 0.678,
+      "matches_officiated": 70
+    }
+  ]
+}

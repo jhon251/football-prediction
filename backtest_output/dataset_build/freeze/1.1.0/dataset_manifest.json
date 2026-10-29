@@ -1,0 +1,35 @@
+{
+ "dataset_id": "HIST_FD_5L_2015_2026",
+ "dataset_version": "1.1.0",
+ "status": "BUILT",
+ "build_timestamp": "2026-08-23T10:17:12.489467+00:00",
+ "policy_version": "policy.v1",
+ "row_count": 19763,
+ "tier_counts": {
+  "TIER_DATE_ONLY": 7304,
+  "TIER_DATETIME": 12459
+ },
+ "schema_fingerprint": "9daaca8fd0dcd87ccabae94203aea44de0473b22d833a0b8ef1bf2b1f13663a2",
+ "source_fingerprint": {
+  "manifest_ref": "backtest_output/hist_csv_audit/manifests/sha256_manifest.json",
+  "sha256_of_sha256_manifest": "9548dba173f30ef32aef0c5e3a820878f9511d4e12c014b4a56b98a65f4e7b49"
+ },
+ "row_checksum": "8f885fbcc38aca3f4ea0b88a925b07db23244fccec7ed09b1f7cb55c45b13442",
+ "build_config": {
+  "build_script_sha256": "ba8a230d9bdc52eed1512473253be21824a91f4b2bac53fc0fcc4794836dce88",
+  "canonical_manifest_sha256": "f8f2f12c72e0561fd67ae8866bf81e9ab4d781ff9cb1f89a64d007d6a0ece347"
+ },
+ "limitations": [
+  "L1",
+  "L2",
+  "L3",
+  "L4",
+  "L5"
+ ],
+ "migration": {
+  "from_version": "1.0.0",
+  "rule": "source filename season is canonical authority (supersedes date heuristic)",
+  "changed_rows": 10,
+  "evidence": "DQ_ADDENDUM_V1 correction 2 + SEASON_BOUNDARY_ADDENDUM.md"
+ }
+}

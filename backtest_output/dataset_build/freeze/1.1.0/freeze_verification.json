@@ -1,0 +1,13 @@
+{
+ "status": "FROZEN",
+ "checks": {
+  "row_count": true,
+  "row_checksum": true,
+  "schema_fingerprint": true,
+  "55_sources_unchanged": true,
+  "rows_schema_valid": true,
+  "migration_file_present": true,
+  "season_audit_present": true,
+  "v1.0.0_unchanged": true
+ }
+}

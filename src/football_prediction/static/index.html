@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>赛前预测 · football_prediction</title>
+<style>
+  :root {
+    --bg: #0b1220; --panel: #121a2b; --panel2: #1a2438; --line: #26324b;
+    --text: #e2e8f0; --dim: #8fa0bd; --accent: #38bdf8;
+    --home: #38bdf8; --draw: #94a3b8; --away: #f87171;
+    --over: #34d399; --under: #fbbf24;
+    --ok: #34d399; --warn: #fbbf24; --bad: #f87171; --muted: #64748b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 14px/1.55 "Segoe UI", "Microsoft YaHei", system-ui, sans-serif;
+  }
+  header {
+    display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap;
+    padding: 14px 20px 10px; border-bottom: 1px solid var(--line);
+  }
+  header h1 { font-size: 18px; margin: 0; }
+  header .sub { color: var(--dim); font-size: 12px; }
+  header .feedinfo { color: var(--dim); font-size: 12px; margin-left: auto; }
+  header button {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--line);
+    border-radius: 8px; padding: 5px 12px; cursor: pointer; font-size: 12px;
+  }
+  header button:hover { border-color: var(--accent); }
+  header button:disabled { opacity: .5; cursor: wait; }
+  .layout { display: flex; gap: 16px; padding: 16px 20px; align-items: flex-start; }
+  aside { width: 340px; flex: none; max-height: calc(100vh - 90px); overflow-y: auto; }
+  main { flex: 1; min-width: 480px; max-height: calc(100vh - 90px); overflow-y: auto; }
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 14px;
+  }
+  .league-head {
+    font-size: 12px; color: var(--dim); margin: 14px 0 4px;
+    display: flex; gap: 8px; align-items: baseline;
+  }
+  .league-head b { color: var(--text); font-size: 13px; }
+  .fx {
+    display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+    border-radius: 10px; cursor: pointer; border: 1px solid transparent;
+  }
+  .fx:hover { background: var(--panel2); }
+  .fx.sel { border-color: var(--accent); background: var(--panel2); }
+  .fx .t { width: 48px; flex: none; color: var(--dim); font-size: 12px; }
+  .fx .teams { flex: 1; font-size: 13px; }
+  .fx .vs { color: var(--dim); font-size: 11px; margin: 0 3px; }
+  .empty { color: var(--dim); padding: 30px; text-align: center; }
+  .matchhead { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .matchhead .teams { font-size: 20px; font-weight: 600; }
+  .matchhead .meta { color: var(--dim); font-size: 12px; }
+  #btn-predict {
+    background: linear-gradient(135deg, #0ea5e9, #2563eb); color: #fff;
+    border: 0; border-radius: 10px; padding: 10px 22px; font-size: 14px;
+    cursor: pointer; margin-left: auto;
+  }
+  #btn-predict:disabled { opacity: .55; cursor: wait; }
+  .badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .badge {
+    font-size: 11px; padding: 2px 9px; border-radius: 999px;
+    background: var(--panel2); border: 1px solid var(--line); color: var(--dim);
+  }
+  .badge.ok { color: var(--ok); border-color: var(--ok); }
+  .badge.warn { color: var(--warn); border-color: var(--warn); }
+  .badge.bad { color: var(--bad); border-color: var(--bad); }
+  .badge.acc { color: var(--accent); border-color: var(--accent); }
+  h3.sec { font-size: 13px; color: var(--dim); margin: 4px 0 8px; font-weight: 600; }
+  .bar3, .bar2 { display: flex; height: 30px; border-radius: 8px; overflow: hidden; }
+  .bar3 div, .bar2 div {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 600; color: #0b1220; min-width: 0;
+    white-space: nowrap; overflow: hidden;
+  }
+  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--dim); margin-top: 6px; flex-wrap: wrap; }
+  .dot { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin-right: 5px; vertical-align: baseline; }
+  table.matrix { border-collapse: collapse; margin: 4px auto; }
+  table.matrix th { color: var(--dim); font-weight: 500; font-size: 11px; padding: 3px 6px; }
+  table.matrix td { width: 52px; height: 34px; text-align: center; font-size: 11px; border: 1px solid rgba(38,50,75,.6); }
+  table.matrix td.draw { outline: 1px solid var(--dim); outline-offset: -2px; }
+  table.matrix .axis { color: var(--text); font-weight: 600; }
+  .mlegend { text-align: center; color: var(--dim); font-size: 11px; margin-top: 6px; }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip {
+    background: var(--panel2); border: 1px solid var(--line); border-radius: 8px;
+    padding: 4px 10px; font-size: 12px;
+  }
+  .chip b { color: var(--accent); }
+  .stats { display: flex; gap: 22px; flex-wrap: wrap; }
+  .stat .k { color: var(--dim); font-size: 11px; }
+  .stat .v { font-size: 16px; font-weight: 600; }
+  details { margin-top: 8px; }
+  details summary { cursor: pointer; color: var(--dim); font-size: 12px; }
+  pre.raw {
+    background: #0a0f1c; border: 1px solid var(--line); border-radius: 8px;
+    padding: 10px; font-size: 11px; max-height: 320px; overflow: auto;
+    color: #9fb3d1; white-space: pre-wrap; word-break: break-all;
+  }
+  .kv { font-size: 12px; color: var(--dim); }
+  .kv b { color: var(--text); font-weight: 500; }
+  .errbox { border-color: var(--bad); }
+  .errbox .code { color: var(--bad); font-weight: 700; font-size: 13px; }
+  .note { color: var(--dim); font-size: 12px; }
+  .spin {
+    width: 14px; height: 14px; border: 2px solid var(--line);
+    border-top-color: var(--accent); border-radius: 50%;
+    display: inline-block; vertical-align: -2px; margin-right: 7px;
+    animation: rot .8s linear infinite;
+  }
+  @keyframes rot { to { transform: rotate(360deg); } }
+  footer { color: var(--muted); font-size: 11px; padding: 6px 20px 18px; }
+  @media (max-width: 900px) {
+    .layout { flex-direction: column; }
+    aside, main { width: auto; max-height: none; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>赛前一键预测</h1>
+  <span class="sub">市场基线 M4/O2（Shin 去水）· 比分矩阵为市场概率的 Dixon-Coles 推导 · 仅供研究，不构成投注建议</span>
+  <span class="feedinfo" id="feedinfo"></span>
+  <span class="feedinfo" id="srcinfo"></span>
+  <button id="btn-refresh" onclick="refreshFixtures()">刷新赛程</button>
+</header>
+
+<div class="layout">
+  <aside>
+    <div class="card" id="fixture-card">
+      <h3 class="sec">未开赛赛程（未来 3 天 · ESPN）</h3>
+      <div id="fixture-list"><div class="empty">载入中…</div></div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="card" id="match-card">
+      <div class="empty">从左侧选择一场比赛</div>
+    </div>
+    <div id="result-area"></div>
+  </main>
+</div>
+
+<footer>
+  输出包含胜平负概率（多庄家赔率 Shin 去水）、大小球 2.5、以及由这些概率推导的比分概率矩阵。
+  预测器为冻结研究管线（P1–P6 不变量：概率只来自去水、缺失即空、信号不改概率、全程可溯源）。禁止用于博彩。
+</footer>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+let selectedEvent = null;
+let fixturesData = [];
+let predictedEvent = null;  // event with a rendered result (button switches to re-capture)
+
+function esc(s) {
+  return String(s ?? "").replace(/[&<>"']/g,
+    (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function pct(p, d=1) { return (p*100).toFixed(d) + "%"; }
+function localTime(iso) {
+  const d = new Date(iso);
+  return d.toLocaleTimeString("zh-CN", {hour:"2-digit", minute:"2-digit"});
+}
+function localDT(iso) {
+  const d = new Date(iso);
+  return d.toLocaleString("zh-CN",
+    {month:"numeric", day:"numeric", weekday:"short", hour:"2-digit", minute:"2-digit"})
+    + "（本地时间）";
+}
+
+/* ------------------------------------------------------------ fixtures */
+async function loadFixtures(force) {
+  $("btn-refresh").disabled = true;
+  $("fixture-list").innerHTML = '<div class="empty"><span class="spin"></span>正在从 ESPN 抓取赛程（约 10–40 秒）…</div>';
+  try {
+    const url = force ? "/api/fixtures?refresh=1" : "/api/fixtures";
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.error) throw new Error(data.error.message || "feed error");
+    fixturesData = data.fixtures || [];
+    const fi = data.fetched_at
+      ? `赛程更新于 ${new Date(data.fetched_at).toLocaleString("zh-CN")}（${data.count} 场）`
+      : "赛程不可用";
+    $("feedinfo").textContent = fi + (data.stale ? " · 已过期，建议刷新" : "");
+    renderFixtures();
+  } catch (e) {
+    $("fixture-list").innerHTML =
+      `<div class="empty">赛程获取失败：${esc(e.message)}</div>`;
+  } finally {
+    $("btn-refresh").disabled = false;
+  }
+}
+function refreshFixtures() { loadFixtures(true); }
+
+function renderFixtures() {
+  const root = $("fixture-list");
+  if (!fixturesData.length) {
+    root.innerHTML = '<div class="empty">未来 3 天没有未开赛的比赛</div>';
+    return;
+  }
+  const groups = new Map();
+  for (const f of fixturesData) {
+    const key = f.league_label || f.league;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key).push(f);
+  }
+  let html = "";
+  for (const [league, items] of groups) {
+    const days = new Map();
+    for (const f of items) {
+      const dk = new Date(f.kickoff_utc).toDateString();
+      if (!days.has(dk)) days.set(dk, []);
+      days.get(dk).push(f);
+    }
+    html += `<div class="league-head"><b>${esc(league)}</b><span>${items.length} 场</span></div>`;
+    for (const [, dayItems] of days) {
+      for (const f of dayItems) {
+        const sel = f.event_id === selectedEvent ? " sel" : "";
+        html += `
+        <div class="fx${sel}" data-id="${esc(f.event_id)}" onclick="selectFixture('${esc(f.event_id)}')">
+          <div class="t">${localTime(f.kickoff_utc)}</div>
+          <div class="teams">${esc(f.home)}<span class="vs"> vs </span>${esc(f.away)}</div>
+        </div>`;
+      }
+    }
+  }
+  root.innerHTML = html;
+}
+
+function selectFixture(id) {
+  selectedEvent = id;
+  predictedEvent = null;
+  document.querySelectorAll(".fx").forEach((el) =>
+    el.classList.toggle("sel", el.dataset.id === id));
+  const f = fixturesData.find((x) => x.event_id === id);
+  if (!f) return;
+  $("result-area").innerHTML = "";
+  $("match-card").innerHTML = `
+    <div class="matchhead">
+      <div>
+        <div class="teams">${esc(f.home)} <span style="color:var(--dim)">vs</span> ${esc(f.away)}</div>
+        <div class="meta">${esc(f.league_label || f.league)} · ${localDT(f.kickoff_utc)}</div>
+      </div>
+      <button id="btn-predict" onclick="predict()">采集赔率并预测（4 配额）</button>
+    </div>`;
+}
+
+/* ------------------------------------------------------------- predict */
+async function predict() {
+  if (!selectedEvent) return;
+  const recapture = predictedEvent === selectedEvent;
+  const btn = $("btn-predict");
+  btn.disabled = true;
+  btn.innerHTML = recapture
+    ? '<span class="spin"></span>重新采集中（4 配额）…'
+    : '<span class="spin"></span>采集 ESPN 赔率并运行预测器…';
+  $("result-area").innerHTML = "";
+  try {
+    const res = await fetch("/api/predict", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      // cache-first unless explicitly re-capturing: a repeat click within the
+      // 10-minute cache TTL costs 0 the-odds-api credits
+      body: JSON.stringify({event_id: selectedEvent, force: recapture}),
+    });
+    const payload = await res.json();
+    if (payload.error) {
+      $("result-area").innerHTML = renderError(payload);
+    } else {
+      predictedEvent = selectedEvent;
+      $("result-area").innerHTML = renderResult(payload);
+      $("btn-predict").textContent = "重新采集（4 配额）";
+    }
+  } catch (e) {
+    $("result-area").innerHTML = renderError(
+      {error: {code: "NETWORK", message: e.message}});
+  } finally {
+    btn.disabled = false;
+    if (predictedEvent !== selectedEvent) {
+      btn.textContent = "采集赔率并预测（4 配额）";
+    }
+  }
+}
+
+function renderError(payload) {
+  const e = payload.error || {};
+  const hint = e.code === "MATCH_NOT_PRE"
+    ? "<div class='note'>该场已开赛或已结束 —— 时间安全门只允许赛前赔率进入预测器。</div>" : "";
+  return `<div class="card errbox">
+    <div class="code">${esc(e.code || "ERROR")}</div>
+    <div>${esc(e.message || "未知错误")}</div>${hint}
+  </div>`;
+}
+
+function statusBadge(s) {
+  const cls = s === "VALID" ? "ok" : (s === "CONDITIONAL" ? "warn"
+    : (s === "REJECTED" || s === "STOP") ? "bad" : "");
+  return `<span class="badge ${cls}">${esc(s)}</span>`;
+}
+
+function renderResult(payload) {
+  const p = payload.prediction;
+  const ftr = p.ftr || {}, ou = p.ou25 || {}, sm = p.score_matrix || {};
+  let html = "";
+
+  /* badges */
+  const provNames = (payload.providers || []).map(
+    (x) => x.provider + (x.source && x.source !== "espn" ? `·${x.source === "the-odds-api" ? "多庄家" : x.source}` : "")).join(" + ");
+  const sources = new Set((payload.providers || []).map((x) => x.source || "espn"));
+  const toa = payload.odds_api || {};
+  html += `<div class="card"><div class="badges">
+    ${statusBadge(p.overall_status)}
+    <span class="badge acc">1X2 ${esc(ftr.status)}</span>
+    <span class="badge acc">OU2.5 ${esc(ou.status)}</span>
+    <span class="badge">矩阵 ${esc(sm.status || "N/A")}</span>
+    <span class="badge">置信 ${esc((p.confidence||{}).grade || "N/A")}</span>
+    <span class="badge">时间安全 ${esc((p.data_quality||{}).time_safe_status || "?")}</span>
+    <span class="badge">${esc((ftr.method||{}).n_books || 0)} 家庄家 · ${esc(provNames)}</span>
+    ${sources.has("the-odds-api") ? '<span class="badge ok">多庄家源已合并</span>' : ""}
+    ${toa.requests_remaining ? `<span class="badge">TOA 配额余 ${esc(toa.requests_remaining)}</span>` : ""}
+    ${payload.from_cache ? '<span class="badge">缓存</span>' : ""}
+  </div>`;
+  if (toa.error) {
+    html += `<div class="note" style="margin-top:8px">the-odds-api 失败：${esc(toa.error)}（已回退到仅 ESPN）</div>`;
+  };
+
+  if (p.overall_status === "REJECTED" || p.overall_status === "STOP") {
+    const reasons = p.rejection_reasons || [p.stop_reason] || [];
+    html += `<div style="margin-top:10px"><b style="color:var(--bad)">${esc(p.overall_status)}</b>
+      <ul>${reasons.map((r) => `<li class="note">${esc(r)}</li>`).join("")}</ul></div></div>`;
+    html += `<div class="card"><h3 class="sec">原始输出</h3>${rawJson(p)}</div>`;
+    return html;
+  }
+
+  /* 1X2 bar */
+  if (ftr.probabilities) {
+    const {home, draw, away} = ftr.probabilities;
+    html += `
+    <h3 class="sec" style="margin-top:14px">胜平负概率（Shin 去水 · ${esc(ftr.method.method_id)}）</h3>
+    <div class="bar3">
+      <div style="width:${home*100}%;background:var(--home)">${pct(home)}</div>
+      <div style="width:${draw*100}%;background:var(--draw)">${pct(draw)}</div>
+      <div style="width:${away*100}%;background:var(--away)">${pct(away)}</div>
+    </div>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--home)"></span>主胜 ${pct(home)}</span>
+      <span><span class="dot" style="background:var(--draw)"></span>平局 ${pct(draw)}</span>
+      <span><span class="dot" style="background:var(--away)"></span>客胜 ${pct(away)}</span>
+    </div>`;
+  }
+
+  /* OU bar */
+  if (ou.probabilities) {
+    const {over, under} = ou.probabilities;
+    html += `
+    <h3 class="sec" style="margin-top:14px">大小球 2.5（${esc(ou.method.method_id)}）</h3>
+    <div class="bar2">
+      <div style="width:${over*100}%;background:var(--over)">大 ${pct(over)}</div>
+      <div style="width:${under*100}%;background:var(--under)">小 ${pct(under)}</div>
+    </div>`;
+  } else {
+    const notes = (payload.providers || []).filter((x) => x.note).map((x) => x.note);
+    html += `<h3 class="sec" style="margin-top:14px">大小球 2.5</h3>
+      <div class="note">未输出：${notes.length ? esc(notes[0]) : "庄家大小球赔率缺失"}（预测器的 O/U 模型固定定义在 2.5 线上，非 2.5 线的数据宁可不要）</div>`;
+  }
+  html += "</div>";
+
+  /* score matrix */
+  if (sm.matrix) {
+    const N = 6, maxP = Math.max(
+      ...sm.matrix.slice(0, N).map((row) => Math.max(...row.slice(0, N))));
+    const tail = 1 - sm.matrix.slice(0, N).reduce(
+      (s, row) => s + row.slice(0, N).reduce((a, b) => a + b, 0), 0);
+    let m = '<table class="matrix"><tr><th></th>';
+    for (let a = 0; a < N; a++) m += `<th>${a}</th>`;
+    m += "</tr>";
+    for (let h = 0; h < N; h++) {
+      m += `<tr><th class="axis">${h}</th>`;
+      for (let a = 0; a < N; a++) {
+        const p = sm.matrix[h][a];
+        const alpha = 0.08 + 0.85 * (p / maxP);
+        const color = h > a ? "56,189,248" : h === a ? "148,163,184" : "248,113,113";
+        m += `<td class="${h === a ? "draw" : ""}"
+              style="background:rgba(${color},${alpha.toFixed(3)});color:${alpha > .5 ? "#0b1220" : "var(--text)"}"
+              title="主 ${h} - ${a} 客 · ${pct(p, 2)}">${pct(p, 1)}</td>`;
+      }
+      m += "</tr>";
+    }
+    m += "</table>";
+    html += `<div class="card">
+      <h3 class="sec">比分概率矩阵（Dixon-Coles 推导 · 行=主队进球，列=客队进球）</h3>
+      ${m}
+      <div class="mlegend">左下蓝区=主胜 · 对角线=平局 · 右上红区=客胜 · 6+ 球区间合计 ${pct(tail, 2)}</div>
+    </div>`;
+
+    /* top scorelines + stats */
+    const chips = (sm.top_scorelines || []).slice(0, 8).map(
+      (t) => `<span class="chip">${esc(t.score)} <b>${pct(t.probability)}</b></span>`).join("");
+    const xg = sm.expected_goals || {};
+    html += `<div class="card">
+      <h3 class="sec">最可能比分 Top 8</h3>
+      <div class="chips">${chips}</div>
+      <div class="stats" style="margin-top:12px">
+        <div class="stat"><div class="k">期望进球（主）</div><div class="v">${(xg.home ?? 0).toFixed(2)}</div></div>
+        <div class="stat"><div class="k">期望进球（客）</div><div class="v">${(xg.away ?? 0).toFixed(2)}</div></div>
+        <div class="stat"><div class="k">期望总进球</div><div class="v">${(xg.total ?? 0).toFixed(2)}</div></div>
+        <div class="stat"><div class="k">双方进球 BTTS</div><div class="v">${pct(sm.aggregates.btts_yes, 1)}</div></div>
+      </div>
+    </div>`;
+  } else {
+    html += `<div class="card"><h3 class="sec">比分概率矩阵</h3>
+      <div class="note">不可用：${esc(sm.reason || "无 1X2 市场概率")}</div></div>`;
+  }
+
+  /* upset risk */
+  const ur = p.upset_risk || {};
+  if (ur.level) {
+    const lvCls = {VERY_HIGH: "bad", HIGH: "warn", MEDIUM: "warn", LOW: "ok"}[ur.level] || "";
+    const exChips = (ur.extreme_scores || []).map(
+      (t) => `<span class="chip">${esc(t.score)} <b>${pct(t.probability)}</b></span>`).join("");
+    html += `<div class="card">
+      <h3 class="sec">爆冷风险预警（Derived · 阈值对齐系统 A UpsetRiskAgent）</h3>
+      <div class="badges" style="margin-bottom:10px">
+        <span class="badge ${lvCls}" style="font-size:13px;padding:4px 12px">爆冷等级：${esc(ur.level_label)}（${esc(ur.level)}）</span>
+        <span class="badge">冷门方向：${esc(ur.direction_label)}</span>
+        <span class="badge">${esc(ur.upset_type === "open_game" ? "开放对局" :
+          ur.upset_type === "upset" ? "重冷型" : "中冷型")}</span>
+        <span class="badge">severity ${esc(ur.severity)}</span>
+      </div>
+      <div class="stats" style="margin-bottom:10px">
+        <div class="stat"><div class="k">冷门方胜率（系统A口径）</div><div class="v">${pct(ur.probability)}</div></div>
+        <div class="stat"><div class="k">热门不胜（含平局）</div><div class="v">${pct(ur.favourite_fails_probability)}</div></div>
+        <div class="stat"><div class="k">冷门方净胜 2+ 球</div><div class="v">${ur.probability_underdog_by_2 != null ? pct(ur.probability_underdog_by_2) : "N/A"}</div></div>
+      </div>
+      ${exChips ? `<div class="k" style="color:var(--dim);font-size:11px;margin-bottom:4px">${esc(ur.extreme_scores_note)}</div><div class="chips">${exChips}</div>` : ""}
+      <ul style="margin:8px 0 0;padding-left:18px">${(ur.drivers||[]).map((d)=>`<li class="note">${esc(d)}</li>`).join("")}</ul>
+      <div class="note" style="margin-top:8px">${esc(ur.invariant_note || "")}</div>
+    </div>`;
+  } else {
+    html += `<div class="card"><h3 class="sec">爆冷风险预警</h3>
+      <div class="note">不可用：${esc(ur.reason || "无 1X2 市场概率")}</div></div>`;
+  }
+
+  /* injury intel (external signal — never affects probabilities, P3) */
+  const inj = payload.injuries || {};
+  if (inj.configured) {
+    if (inj.error) {
+      html += `<div class="card"><h3 class="sec">伤停情报</h3>
+        <div class="note">football-data.org 失败：${esc(inj.error)}（预测不受影响）</div></div>`;
+    } else if (Array.isArray(inj.home) || Array.isArray(inj.away)) {
+      const sigStatus = ((p.external_signals||{}).overall_status) || "NOT_AVAILABLE";
+      const list = (arr) => arr && arr.length
+        ? `<ul style="margin:4px 0 0;padding-left:16px">${arr.map(
+            (x) => `<li class="note">${esc(x.player)} — ${esc(x.reason)}（${esc(x.type)}）</li>`).join("")}</ul>`
+        : '<div class="note" style="margin-top:4px">无记录在案的缺阵</div>';
+      html += `<div class="card">
+        <h3 class="sec">伤停情报（未验证信号 · 不影响概率）</h3>
+        <div class="badges" style="margin-bottom:8px">
+          <span class="badge ${sigStatus === "AVAILABLE_NOT_VALIDATED" ? "warn" : ""}">信号状态 ${esc(sigStatus)}</span>
+          <span class="badge">主队缺阵 ${(inj.home||[]).length} 人 · 客队 ${(inj.away||[]).length} 人</span>
+          ${inj.route ? `<span class="badge">来源 football-data.org（${esc(inj.route)}）</span>` : ""}
+        </div>
+        <div style="display:flex;gap:24px;flex-wrap:wrap">
+          <div style="flex:1;min-width:220px"><div class="k" style="color:var(--dim);font-size:11px">主队 · ${esc((payload.fixture||{}).home||"")}</div>${list(inj.home)}</div>
+          <div style="flex:1;min-width:220px"><div class="k" style="color:var(--dim);font-size:11px">客队 · ${esc((payload.fixture||{}).away||"")}</div>${list(inj.away)}</div>
+        </div>
+        <div class="note" style="margin-top:8px">伤停数据只作为外部信号记录（P3 不变量：信号永不修改概率）；其预测增量价值未经预注册实验验证。</div>
+      </div>`;
+    } else if (inj.note) {
+      html += `<div class="card"><h3 class="sec">伤停情报</h3>
+        <div class="note">${esc(inj.note)}</div></div>`;
+    }
+  }
+
+  /* provenance */
+  const m4 = ftr.method || {}, mo = ou.method || {}, unc = p.uncertainty || {};
+  html += `<div class="card">
+    <h3 class="sec">溯源与数据质量</h3>
+    <div class="kv">
+      模型：<b>${esc(p.model_version)}</b><br>
+      1X2 方法：<b>${esc(m4.method_id)}</b>（${esc(m4.norm)} · ${esc(m4.input)} · 庄家 ${esc(m4.books_used)}） ·
+      shin_z=${esc(m4.shin_z)} · overround=${esc(m4.overround)}<br>
+      O/U 方法：<b>${esc(mo.method_id || "N/A")}</b> · 赔率抓取：<b>${esc((p.market_data||{}).retrieved_at)}</b> &lt; 开球 <b>${esc((p.match||{}).kickoff_utc)}</b><br>
+      不确定性：熵 ${esc(unc.ftr_entropy_bits)} bits · 等级 <b>${esc(unc.grade)}</b>${(unc.notes||[]).length ? " · " + esc(unc.notes[0]) : ""}<br>
+      矩阵：${esc(sm.invariant_note || "")} ${sm.method ? `（拟合残差 ${esc(sm.method.max_aggregate_residual)}）` : ""}
+    </div>
+    <details><summary>完整预测 JSON</summary>${rawJson(payload)}</details>
+    <details><summary>采集到的原始赔率</summary>
+      <pre class="raw">${esc(JSON.stringify(payload.books, null, 2))}</pre></details>
+  </div>`;
+  return html;
+}
+
+function rawJson(obj) {
+  return `<pre class="raw">${esc(JSON.stringify(obj, null, 2))}</pre>`;
+}
+
+loadFixtures(false);
+fetch("/api/health").then((r) => r.json()).then((h) => {
+  const oa = (h.odds_api || {});
+  const parts = [oa.configured
+    ? "多庄家源 the-odds-api：已接入"
+    : "多庄家源 the-odds-api：未配置（单庄家，置信显示 LOW）"];
+  parts.push((h.injuries_api || {}).configured
+    ? "伤停源：已接入" : "伤停源：未配置");
+  $("srcinfo").textContent = parts.join(" · ");
+}).catch(() => {});
+</script>
+</body>
+</html>

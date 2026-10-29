@@ -1,0 +1,66 @@
+{
+  "audit": {
+    "id": "G1",
+    "date_utc": "2026-09-13T04:37:00Z",
+    "object": "phase5_3_p1_understat_forward/forward_pipeline/scheduler.py deployment & runtime",
+    "accepted_state_unchanged": {
+      "m4_o2_3504_0_mismatch": true,
+      "p1_dryrun_12_of_12": true,
+      "forward_store_time_safe": 0,
+      "stalled_since": "2026-08-25T15:45:23Z",
+      "stall_days_at_audit": 19,
+      "revision_audit_t24_t7d_executed": false
+    }
+  },
+  "labels": ["Evidence", "Hypothesis", "Unknown"],
+  "root_causes": [
+    {"id": "R1", "level": "Evidence", "finding": "no OS persistence: 0 matching scheduled tasks, no HKCU Run entry, no Startup-folder item for understat forward scheduler; report self-describes deployment as 'managed background job'; contrast: DATA-006 lineup supervisor survives reboots via Startup cmd -> watchdog (running at audit, PID 14800)"},
+    {"id": "R2", "level": "Evidence", "finding": "runs log ends abruptly 2026-08-25T15:45:23Z with no shutdown record; machine rebooted multiple times since (last boot 2026-09-13 09:59 local)"},
+    {"id": "R3", "level": "Evidence", "finding": "revision recheck schedule overwritten by each new window capture, orphaning pending rechecks of earlier baselines (08-24 baselines' T+24h due 08-25T15:22Z silently skipped after 08-25T10:02Z captures reset the schedule; F1 recheck never tracked)"},
+    {"id": "R4", "level": "Evidence", "finding": "revision_due never marks checkpoints done -> after t24 passes, daemon would re-capture every poll (runaway); 0 revision_recheck actions ever logged; never triggered only because the process died first"},
+    {"id": "R5", "level": "Evidence", "finding": "SCHEDULER_RUN_REPORT.md claims T+24h recheck 'executed by the daemon' - contradicted by runs log (0 recheck actions) and state file (never executed)"}
+  ],
+  "systemic_weaknesses": [
+    {"id": "R6", "level": "Evidence", "finding": "daemon loop has no per-cycle exception guard; unexpected exception (e.g. corrupted state JSON) kills the process silently"},
+    {"id": "R7", "level": "Evidence", "finding": "no lock file; double-start would produce duplicate captures"},
+    {"id": "R8", "level": "Evidence", "finding": "RUNS_LOG/STATE hardcoded to production store; scheduler untestable in sandbox"},
+    {"id": "R9", "level": "Evidence", "finding": "provider-datetime-treated-as-UTC exists only as a code comment; not in config or run logs"},
+    {"id": "R10", "level": "Evidence", "finding": "no operational-gap detection; a 19-day stall is invisible to the system itself"}
+  ],
+  "checklist": {
+    "entry_point": "scheduler.py --once/--daemon; started manually 2026-08-25 as background job",
+    "task_scheduler_processes_lock": "0 tasks, no scheduler process now, no lock mechanism",
+    "logs": "185 run entries; actions: window_not_open 7, no_results 37, skip_dup 138, captured_late 3, revision_recheck 0; missing 0; schema drift 0",
+    "exception_handling": "fetch/parse/drift branches logged; daemon loop lacks catch-all (R6)",
+    "capture_window_computation": "T+3h..T+6h after last fulltime; consistent with protocol (dry-run C05/N4/N6)",
+    "utc_vs_provider_local": "implicit convention, comment-only (R9)",
+    "append_only_and_dedupe": "verified: 8-entry chain intact, all raw sha256 match sidecars and registry, parser_version consistent",
+    "forward_namespace_guard": "active (dry-run N1); all 8 sidecars dq_namespace=forward",
+    "historical_retro_exclusion": "dq_validation namespace isolated (N1b); 0 historical_retro records in production store",
+    "retrieved_at_vs_kickoff": "pipeline window uses fulltime (capture fidelity); prediction gate uses retrieved_at<kickoff (feature admissibility); complementary, not conflated",
+    "dq_label_totals": {"time_safe": 0, "window_late": 76, "upcoming_fixture": 2510, "historical_retro": 0},
+    "manifests_sha256_parser_registry": "5 manifests frozen at first captures; chain and hashes verified intact",
+    "silent_failure": "no in-process silent branch; but process-level death fully silent (R6/R10) and 08-24 recheck silently orphaned (R3)"
+  },
+  "hypotheses": [
+    "process died at terminal close or machine shutdown (consistent with R1/R2; no direct evidence of the kill moment)",
+    "had the process survived to 2026-08-26T10:02Z, the R4 runaway would have begun"
+  ],
+  "unknowns": [
+    "exact moment and manner of process death",
+    "whether provider revised historical xG values during the stall (observable only via out-of-schedule re-fetch diff, to be executed and honestly labeled)",
+    {"resolved": "external auto-restart mechanism existed -> excluded (Evidence: tasks/startup/processes all checked)"}
+  ],
+  "impact": {
+    "historical_results": "unaffected (M4/O2, dry-run, frozen fingerprint untouched; append-only chain intact)",
+    "forward_validation": "all time_safe windows 2026-08-26..2026-09-12 missed (~3-4 matchdays/league); those matchdays can only exist as window_late (excluded from future validation); time_safe accumulation starts at first real in-window capture after recovery"
+  },
+  "fix_preconditions_confirmed": {
+    "frozen_data_untouched": true,
+    "no_historical_retro_admission": true,
+    "no_time_safe_fabrication": true,
+    "m4_o2_untouched": true,
+    "no_raw_response_overwrite": true,
+    "append_only_preserved": true
+  }
+}

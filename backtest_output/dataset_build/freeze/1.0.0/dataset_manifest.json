@@ -1,0 +1,135 @@
+{
+ "dataset_id": "HIST_FD_5L_2015_2026",
+ "dataset_version": "1.0.0",
+ "status": "BUILT",
+ "build_timestamp": "2026-08-23T09:47:29.768798+00:00",
+ "policy_version": "policy.v1",
+ "row_count": 19763,
+ "tier_counts": {
+  "TIER_DATE_ONLY": 7304,
+  "TIER_DATETIME": 12459
+ },
+ "schema_fingerprint": "9daaca8fd0dcd87ccabae94203aea44de0473b22d833a0b8ef1bf2b1f13663a2",
+ "source_fingerprint": {
+  "manifest_ref": "backtest_output/hist_csv_audit/manifests/sha256_manifest.json",
+  "sha256_of_sha256_manifest": "9548dba173f30ef32aef0c5e3a820878f9511d4e12c014b4a56b98a65f4e7b49"
+ },
+ "row_checksum": "9c0b2df9f9ee473f889bfcdf32f942932dbeca1ce3256cd50041b072c42316ea",
+ "build_config": {
+  "build_script_sha256": "0f09980d0767c4dc5fc4e2bd029a4f5da350e0075161046c593d5208812f3279",
+  "spec_sha256": {
+   "DATASET_CONTRACT.md": "141220064f34a90d1d18b2d83102e071e819226b1d6a6600b2603c282a47cb23",
+   "CANONICAL_SCHEMA.md": "ae9b3f3e707f3fa16f169e679bba4af378d01b0cda94dc7c532774fce51026a4",
+   "FEATURE_AVAILABILITY_REGISTRY.md": "a55dc3c075bdbb11cabbedc41c1e0d71e8237502ab7596317cc6390730cf6bba",
+   "DATASET_BUILD_SPEC.md": "19d4babbbdeed2a9adbc2a1a4fabc6457b28ba998a9c867085010e5f56684c11",
+   "DATASET_FREEZE_SPEC.md": "7ea5c05c00aac871c635baf1a42662ceccef6c69d45fae13576cb92af5ddc8d2"
+  },
+  "canonical_manifest_sha256": "f8f2f12c72e0561fd67ae8866bf81e9ab4d781ff9cb1f89a64d007d6a0ece347"
+ },
+ "limitations": [
+  "L1",
+  "L2",
+  "L3",
+  "L4",
+  "L5"
+ ],
+ "dq_report_ref": "backtest_output/hist_csv_audit/DATASET_QUALIFICATION_REPORT.md",
+ "nulled_price_cells": [
+  [
+   "E021.csv",
+   168,
+   "B365C>2.5",
+   "0"
+  ],
+  [
+   "E021.csv",
+   168,
+   "B365C<2.5",
+   "0"
+  ],
+  [
+   "sp125.csv",
+   84,
+   "PC>2.5",
+   "0"
+  ],
+  [
+   "sp125.csv",
+   84,
+   "PC<2.5",
+   "0"
+  ],
+  [
+   "D119.csv",
+   261,
+   "AvgC>2.5",
+   "0.42"
+  ],
+  [
+   "D124.csv",
+   295,
+   "P>2.5",
+   "0"
+  ],
+  [
+   "D124.csv",
+   295,
+   "P<2.5",
+   "0"
+  ],
+  [
+   "D124.csv",
+   295,
+   "PC>2.5",
+   "0"
+  ],
+  [
+   "D124.csv",
+   295,
+   "PC<2.5",
+   "0"
+  ],
+  [
+   "F124.csv",
+   263,
+   "P>2.5",
+   "0"
+  ],
+  [
+   "F124.csv",
+   263,
+   "P<2.5",
+   "0"
+  ],
+  [
+   "F124.csv",
+   263,
+   "PC>2.5",
+   "0"
+  ],
+  [
+   "F124.csv",
+   263,
+   "PC<2.5",
+   "0"
+  ],
+  [
+   "F124.csv",
+   303,
+   "1XBH",
+   "0"
+  ],
+  [
+   "F124.csv",
+   303,
+   "1XBD",
+   "0"
+  ],
+  [
+   "F124.csv",
+   303,
+   "1XBA",
+   "0"
+  ]
+ ]
+}

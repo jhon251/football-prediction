@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+
+# Runtime artifacts
+learning_store.json
+config/odds_api.key
+config/api_football.key
+_demo_*.json
+_demo_*.txt
+_test_out*.txt
+_test_final.txt
+tmp*/
+
+# Test scratch dirs (sandbox-safe temp dirs live under tests/)
+tests/.tmp_*/
+
+# Secrets (never publish)
+config/*.key
+*.key
+
+# Runtime artifacts & large datasets (605M+1.3G) — regenerate via scripts/
+backtest_output/*
+!backtest_output/dataset_build/
+backtest_output/dataset_build/*
+!backtest_output/dataset_build/freeze/
+data/*
+!data/evidence/
+
+# Scratch files at repo root
+_*.txt
+_*.json
+
+# IDE / tool plugin pointers
+.v2c/
+.video_agent/
+
+# test scratch under scripts/
+scripts/backtest_output/

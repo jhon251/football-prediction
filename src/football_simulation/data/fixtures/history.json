@@ -1,0 +1,1085 @@
+{
+  "note": "SYNTHETIC MOCK DATA",
+  "histories": [
+    {
+      "team_id": "team-ars",
+      "competition_id": "premier_league",
+      "season": "2026-27",
+      "entries": [
+        {
+          "date": "2026-08-13T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": false,
+          "goals_for": 2,
+          "goals_against": 1,
+          "xg_for": 1.33,
+          "xg_against": 0.25,
+          "competition": "league"
+        },
+        {
+          "date": "2026-08-06T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.72,
+          "xg_against": -0.22,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-30T18:30:00+00:00",
+          "opponent": "Chelsea",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.72,
+          "xg_against": 0.17,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-23T18:30:00+00:00",
+          "opponent": "Chelsea",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 0.37,
+          "xg_against": 1.49,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-16T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.11,
+          "xg_against": 0.33,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-09T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": true,
+          "goals_for": 2,
+          "goals_against": 0,
+          "xg_for": 1.78,
+          "xg_against": 0.71,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-02T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.03,
+          "xg_against": 1.01,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-25T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": 0.54,
+          "xg_against": 0.91,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-18T18:30:00+00:00",
+          "opponent": "Real Madrid",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 0.32,
+          "xg_against": -0.75,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-11T18:30:00+00:00",
+          "opponent": "Borussia Dortmund",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.01,
+          "xg_against": 1.7,
+          "competition": "league"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "team_id": "team-che",
+      "competition_id": "premier_league",
+      "season": "2026-27",
+      "entries": [
+        {
+          "date": "2026-08-13T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": 0.16,
+          "xg_against": 0.06,
+          "competition": "league"
+        },
+        {
+          "date": "2026-08-06T18:30:00+00:00",
+          "opponent": "Paris Saint-Germain",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 2,
+          "xg_for": -0.08,
+          "xg_against": 2.23,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-30T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": true,
+          "goals_for": 2,
+          "goals_against": 2,
+          "xg_for": 2.92,
+          "xg_against": 1.96,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-23T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": -0.42,
+          "xg_against": -0.87,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-16T18:30:00+00:00",
+          "opponent": "Inter",
+          "home": false,
+          "goals_for": 2,
+          "goals_against": 1,
+          "xg_for": 2.14,
+          "xg_against": 0.12,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-09T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 0.7,
+          "xg_against": -0.49,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-02T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.52,
+          "xg_against": -0.19,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-25T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.19,
+          "xg_against": 0.91,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-18T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.62,
+          "xg_against": 0.33,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-11T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": false,
+          "goals_for": 2,
+          "goals_against": 0,
+          "xg_for": 2.46,
+          "xg_against": 0.8,
+          "competition": "league"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "team_id": "team-rma",
+      "competition_id": "la_liga",
+      "season": "2026-27",
+      "entries": [
+        {
+          "date": "2026-08-13T18:30:00+00:00",
+          "opponent": "Inter",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": -0.08,
+          "xg_against": 0.02,
+          "competition": "league"
+        },
+        {
+          "date": "2026-08-06T18:30:00+00:00",
+          "opponent": "Borussia Dortmund",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.09,
+          "xg_against": -0.05,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-30T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 1.97,
+          "xg_against": 0.58,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-23T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.05,
+          "xg_against": -0.42,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-16T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 0.52,
+          "xg_against": 0.94,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-09T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.0,
+          "xg_against": -0.72,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-02T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": 0.18,
+          "xg_against": 1.71,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-25T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": true,
+          "goals_for": 2,
+          "goals_against": 0,
+          "xg_for": 2.39,
+          "xg_against": 0.83,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-18T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 0.98,
+          "xg_against": 0.31,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-11T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 1.4,
+          "xg_against": 0.98,
+          "competition": "league"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "team_id": "team-bar",
+      "competition_id": "la_liga",
+      "season": "2026-27",
+      "entries": [
+        {
+          "date": "2026-08-13T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.0,
+          "xg_against": -0.34,
+          "competition": "league"
+        },
+        {
+          "date": "2026-08-06T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.05,
+          "xg_against": 0.04,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-30T18:30:00+00:00",
+          "opponent": "Inter",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.43,
+          "xg_against": 1.68,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-23T18:30:00+00:00",
+          "opponent": "Inter",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.04,
+          "xg_against": -0.86,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-16T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 0.37,
+          "xg_against": -0.2,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-09T18:30:00+00:00",
+          "opponent": "Real Madrid",
+          "home": false,
+          "goals_for": 2,
+          "goals_against": 1,
+          "xg_for": 1.68,
+          "xg_against": 1.18,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-02T18:30:00+00:00",
+          "opponent": "Real Madrid",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": -0.22,
+          "xg_against": 0.55,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-25T18:30:00+00:00",
+          "opponent": "Paris Saint-Germain",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 0.98,
+          "xg_against": 1.17,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-18T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 0.86,
+          "xg_against": 0.99,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-11T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 1.69,
+          "xg_against": 1.05,
+          "competition": "league"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "team_id": "team-bay",
+      "competition_id": "bundesliga",
+      "season": "2026-27",
+      "entries": [
+        {
+          "date": "2026-08-13T18:30:00+00:00",
+          "opponent": "Paris Saint-Germain",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.5,
+          "xg_against": 0.64,
+          "competition": "league"
+        },
+        {
+          "date": "2026-08-06T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": true,
+          "goals_for": 2,
+          "goals_against": 1,
+          "xg_for": 1.88,
+          "xg_against": 0.64,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-30T18:30:00+00:00",
+          "opponent": "Inter",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.59,
+          "xg_against": 1.64,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-23T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.37,
+          "xg_against": 0.45,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-16T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": false,
+          "goals_for": 2,
+          "goals_against": 1,
+          "xg_for": 1.75,
+          "xg_against": 0.31,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-09T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.13,
+          "xg_against": 0.19,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-02T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.65,
+          "xg_against": 1.08,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-25T18:30:00+00:00",
+          "opponent": "Chelsea",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 0.58,
+          "xg_against": 0.35,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-18T18:30:00+00:00",
+          "opponent": "Chelsea",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.72,
+          "xg_against": 1.52,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-11T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.76,
+          "xg_against": -0.4,
+          "competition": "league"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "team_id": "team-bvb",
+      "competition_id": "bundesliga",
+      "season": "2026-27",
+      "entries": [
+        {
+          "date": "2026-08-13T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 0.99,
+          "xg_against": 0.82,
+          "competition": "league"
+        },
+        {
+          "date": "2026-08-06T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.02,
+          "xg_against": 0.81,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-30T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": 0.24,
+          "xg_against": 1.33,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-23T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": -0.18,
+          "xg_against": 0.05,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-16T18:30:00+00:00",
+          "opponent": "Inter",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.21,
+          "xg_against": -0.6,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-09T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": true,
+          "goals_for": 2,
+          "goals_against": 0,
+          "xg_for": 1.01,
+          "xg_against": 0.18,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-02T18:30:00+00:00",
+          "opponent": "Real Madrid",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 2,
+          "xg_for": 1.15,
+          "xg_against": 2.45,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-25T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": true,
+          "goals_for": 4,
+          "goals_against": 3,
+          "xg_for": 4.19,
+          "xg_against": 3.39,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-18T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 0.11,
+          "xg_against": -0.19,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-11T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.63,
+          "xg_against": 1.22,
+          "competition": "league"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "team_id": "team-int",
+      "competition_id": "serie_a",
+      "season": "2026-27",
+      "entries": [
+        {
+          "date": "2026-08-13T18:30:00+00:00",
+          "opponent": "Chelsea",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.77,
+          "xg_against": -0.92,
+          "competition": "league"
+        },
+        {
+          "date": "2026-08-06T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": -1.35,
+          "xg_against": 0.12,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-30T18:30:00+00:00",
+          "opponent": "Borussia Dortmund",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": -0.73,
+          "xg_against": -0.19,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-23T18:30:00+00:00",
+          "opponent": "Real Madrid",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 0.2,
+          "xg_against": 1.18,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-16T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": false,
+          "goals_for": 4,
+          "goals_against": 1,
+          "xg_for": 3.35,
+          "xg_against": 0.64,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-09T18:30:00+00:00",
+          "opponent": "Borussia Dortmund",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 0.71,
+          "xg_against": 0.42,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-02T18:30:00+00:00",
+          "opponent": "Borussia Dortmund",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.48,
+          "xg_against": 1.63,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-25T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": false,
+          "goals_for": 3,
+          "goals_against": 2,
+          "xg_for": 3.49,
+          "xg_against": 1.45,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-18T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": 0.13,
+          "xg_against": 0.81,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-11T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.32,
+          "xg_against": -0.65,
+          "competition": "league"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "team_id": "team-mil",
+      "competition_id": "serie_a",
+      "season": "2026-27",
+      "entries": [
+        {
+          "date": "2026-08-13T18:30:00+00:00",
+          "opponent": "Inter",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 2,
+          "xg_for": -0.19,
+          "xg_against": 1.47,
+          "competition": "league"
+        },
+        {
+          "date": "2026-08-06T18:30:00+00:00",
+          "opponent": "Paris Saint-Germain",
+          "home": false,
+          "goals_for": 2,
+          "goals_against": 1,
+          "xg_for": 1.87,
+          "xg_against": 0.61,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-30T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 0.91,
+          "xg_against": -0.53,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-23T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 1,
+          "xg_for": 0.26,
+          "xg_against": 1.15,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-16T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": false,
+          "goals_for": 3,
+          "goals_against": 1,
+          "xg_for": 2.67,
+          "xg_against": 0.34,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-09T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.9,
+          "xg_against": -0.02,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-02T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": 0.63,
+          "xg_against": 1.3,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-25T18:30:00+00:00",
+          "opponent": "Borussia Dortmund",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.07,
+          "xg_against": 0.49,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-18T18:30:00+00:00",
+          "opponent": "Real Madrid",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": 0.13,
+          "xg_against": 1.21,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-11T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 3,
+          "xg_for": 0.84,
+          "xg_against": 2.61,
+          "competition": "league"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "team_id": "team-psg",
+      "competition_id": "ligue_1",
+      "season": "2026-27",
+      "entries": [
+        {
+          "date": "2026-08-13T18:30:00+00:00",
+          "opponent": "Chelsea",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 2,
+          "xg_for": 0.19,
+          "xg_against": 2.65,
+          "competition": "league"
+        },
+        {
+          "date": "2026-08-06T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": true,
+          "goals_for": 3,
+          "goals_against": 0,
+          "xg_for": 3.42,
+          "xg_against": 0.31,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-30T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": 0.53,
+          "xg_against": 1.29,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-23T18:30:00+00:00",
+          "opponent": "Chelsea",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -0.17,
+          "xg_against": 0.92,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-16T18:30:00+00:00",
+          "opponent": "Arsenal",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": -1.01,
+          "xg_against": 1.09,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-09T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 2,
+          "xg_for": 1.25,
+          "xg_against": 1.95,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-02T18:30:00+00:00",
+          "opponent": "Marseille",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 0.5,
+          "xg_against": -0.03,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-25T18:30:00+00:00",
+          "opponent": "Chelsea",
+          "home": true,
+          "goals_for": 2,
+          "goals_against": 1,
+          "xg_for": 1.05,
+          "xg_against": 1.07,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-18T18:30:00+00:00",
+          "opponent": "Borussia Dortmund",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.08,
+          "xg_against": -0.12,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-11T18:30:00+00:00",
+          "opponent": "Chelsea",
+          "home": false,
+          "goals_for": 4,
+          "goals_against": 1,
+          "xg_for": 3.59,
+          "xg_against": 0.47,
+          "competition": "league"
+        }
+      ],
+      "complete": true
+    },
+    {
+      "team_id": "team-om",
+      "competition_id": "ligue_1",
+      "season": "2026-27",
+      "entries": [
+        {
+          "date": "2026-08-13T18:30:00+00:00",
+          "opponent": "Inter",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 0,
+          "xg_for": 1.56,
+          "xg_against": -0.35,
+          "competition": "league"
+        },
+        {
+          "date": "2026-08-06T18:30:00+00:00",
+          "opponent": "Bayern Munich",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 1.09,
+          "xg_against": 0.11,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-30T18:30:00+00:00",
+          "opponent": "Inter",
+          "home": false,
+          "goals_for": 3,
+          "goals_against": 1,
+          "xg_for": 3.13,
+          "xg_against": 1.61,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-23T18:30:00+00:00",
+          "opponent": "Paris Saint-Germain",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": -0.17,
+          "xg_against": 0.55,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-16T18:30:00+00:00",
+          "opponent": "Chelsea",
+          "home": false,
+          "goals_for": 1,
+          "goals_against": 3,
+          "xg_for": 1.67,
+          "xg_against": 3.2,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-09T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": true,
+          "goals_for": 0,
+          "goals_against": 1,
+          "xg_for": 0.01,
+          "xg_against": 0.9,
+          "competition": "league"
+        },
+        {
+          "date": "2026-07-02T18:30:00+00:00",
+          "opponent": "AC Milan",
+          "home": true,
+          "goals_for": 2,
+          "goals_against": 1,
+          "xg_for": 1.95,
+          "xg_against": 1.86,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-25T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": true,
+          "goals_for": 1,
+          "goals_against": 2,
+          "xg_for": 0.59,
+          "xg_against": 2.09,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-18T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.14,
+          "xg_against": 0.53,
+          "competition": "league"
+        },
+        {
+          "date": "2026-06-11T18:30:00+00:00",
+          "opponent": "Barcelona",
+          "home": false,
+          "goals_for": 0,
+          "goals_against": 0,
+          "xg_for": 0.42,
+          "xg_against": 0.54,
+          "competition": "league"
+        }
+      ],
+      "complete": true
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "football-simulation"
+version = "1.0.0"
+description = "Football Match Digital Twin & Simulation System (V1) - a world-model based football match sandbox/simulation engine"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "pydantic>=2.5",
+    "numpy>=1.26",
+]
+
+[project.optional-dependencies]
+api = ["fastapi>=0.110", "uvicorn>=0.29"]
+yaml = ["pyyaml>=6.0"]
+test = ["pytest>=8.0", "fastapi>=0.110"]
+dev = ["pytest>=8.0", "fastapi>=0.110", "uvicorn>=0.29", "pyyaml>=6.0"]
+
+[project.scripts]
+football = "football_simulation.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+football_prediction = ["static/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+    "slow: slow integration/simulation tests (deselect with '-m \"not slow\"')",
+    "api: tests requiring the FastAPI stack",
+]

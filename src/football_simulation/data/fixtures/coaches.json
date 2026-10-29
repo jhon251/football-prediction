@@ -1,0 +1,295 @@
+{
+  "note": "SYNTHETIC MOCK DATA",
+  "coaches": [
+    {
+      "coach_id": "coach-ars",
+      "team_id": "team-ars",
+      "name": "Viktor Hale",
+      "preferred_formations": [
+        "4-3-3",
+        "4-2-3-1"
+      ],
+      "tactical_flexibility": 0.55,
+      "substitution_timing": {
+        "early": 0.15,
+        "mid": 0.55,
+        "late": 0.3
+      },
+      "substitution_patterns": [
+        "attacking_replacement",
+        "fatigue_rotation"
+      ],
+      "reaction_to_leading": "moderate",
+      "reaction_to_trailing": "aggressive",
+      "reaction_to_red_card": "balanced",
+      "reaction_to_conceding": "aggressive",
+      "reaction_to_scoring": "moderate",
+      "rotation_tendency": 0.35,
+      "risk_tolerance": 0.62,
+      "big_match_behavior": "cautious",
+      "late_game_behavior": "game_management",
+      "aggressiveness": 0.7
+    },
+    {
+      "coach_id": "coach-che",
+      "team_id": "team-che",
+      "name": "Nils Brandt",
+      "preferred_formations": [
+        "4-2-3-1",
+        "4-3-3"
+      ],
+      "tactical_flexibility": 0.62,
+      "substitution_timing": {
+        "early": 0.2,
+        "mid": 0.5,
+        "late": 0.3
+      },
+      "substitution_patterns": [
+        "tactical_switch",
+        "fatigue_rotation"
+      ],
+      "reaction_to_leading": "defensive",
+      "reaction_to_trailing": "moderate",
+      "reaction_to_red_card": "defensive",
+      "reaction_to_conceding": "moderate",
+      "reaction_to_scoring": "moderate",
+      "rotation_tendency": 0.55,
+      "risk_tolerance": 0.5,
+      "big_match_behavior": "pragmatic",
+      "late_game_behavior": "game_management",
+      "aggressiveness": 0.55
+    },
+    {
+      "coach_id": "coach-rma",
+      "team_id": "team-rma",
+      "name": "Diego Alvaro",
+      "preferred_formations": [
+        "4-3-3",
+        "4-4-2"
+      ],
+      "tactical_flexibility": 0.58,
+      "substitution_timing": {
+        "early": 0.15,
+        "mid": 0.55,
+        "late": 0.3
+      },
+      "substitution_patterns": [
+        "attacking_replacement",
+        "tactical_switch"
+      ],
+      "reaction_to_leading": "moderate",
+      "reaction_to_trailing": "aggressive",
+      "reaction_to_red_card": "balanced",
+      "reaction_to_conceding": "aggressive",
+      "reaction_to_scoring": "moderate",
+      "rotation_tendency": 0.4,
+      "risk_tolerance": 0.68,
+      "big_match_behavior": "cautious",
+      "late_game_behavior": "push_for_winner",
+      "aggressiveness": 0.72
+    },
+    {
+      "coach_id": "coach-bar",
+      "team_id": "team-bar",
+      "name": "Pau Segura",
+      "preferred_formations": [
+        "4-3-3",
+        "3-4-3"
+      ],
+      "tactical_flexibility": 0.5,
+      "substitution_timing": {
+        "early": 0.15,
+        "mid": 0.6,
+        "late": 0.25
+      },
+      "substitution_patterns": [
+        "attacking_replacement",
+        "young_player_introduction"
+      ],
+      "reaction_to_leading": "moderate",
+      "reaction_to_trailing": "aggressive",
+      "reaction_to_red_card": "balanced",
+      "reaction_to_conceding": "moderate",
+      "reaction_to_scoring": "moderate",
+      "rotation_tendency": 0.45,
+      "risk_tolerance": 0.6,
+      "big_match_behavior": "cautious",
+      "late_game_behavior": "game_management",
+      "aggressiveness": 0.68
+    },
+    {
+      "coach_id": "coach-bay",
+      "team_id": "team-bay",
+      "name": "Lukas Steiner",
+      "preferred_formations": [
+        "4-2-3-1",
+        "4-3-3"
+      ],
+      "tactical_flexibility": 0.55,
+      "substitution_timing": {
+        "early": 0.15,
+        "mid": 0.55,
+        "late": 0.3
+      },
+      "substitution_patterns": [
+        "fatigue_rotation",
+        "attacking_replacement"
+      ],
+      "reaction_to_leading": "moderate",
+      "reaction_to_trailing": "aggressive",
+      "reaction_to_red_card": "defensive",
+      "reaction_to_conceding": "moderate",
+      "reaction_to_scoring": "moderate",
+      "rotation_tendency": 0.4,
+      "risk_tolerance": 0.64,
+      "big_match_behavior": "pragmatic",
+      "late_game_behavior": "push_for_winner",
+      "aggressiveness": 0.7
+    },
+    {
+      "coach_id": "coach-bvb",
+      "team_id": "team-bvb",
+      "name": "Felix Kr\u00fcger",
+      "preferred_formations": [
+        "4-3-3",
+        "4-2-3-1"
+      ],
+      "tactical_flexibility": 0.6,
+      "substitution_timing": {
+        "early": 0.25,
+        "mid": 0.5,
+        "late": 0.25
+      },
+      "substitution_patterns": [
+        "young_player_introduction",
+        "fatigue_rotation"
+      ],
+      "reaction_to_leading": "moderate",
+      "reaction_to_trailing": "aggressive",
+      "reaction_to_red_card": "balanced",
+      "reaction_to_conceding": "aggressive",
+      "reaction_to_scoring": "moderate",
+      "rotation_tendency": 0.6,
+      "risk_tolerance": 0.7,
+      "big_match_behavior": "pragmatic",
+      "late_game_behavior": "push_for_winner",
+      "aggressiveness": 0.75
+    },
+    {
+      "coach_id": "coach-int",
+      "team_id": "team-int",
+      "name": "Marco Vitale",
+      "preferred_formations": [
+        "3-5-2",
+        "5-3-2"
+      ],
+      "tactical_flexibility": 0.55,
+      "substitution_timing": {
+        "early": 0.1,
+        "mid": 0.55,
+        "late": 0.35
+      },
+      "substitution_patterns": [
+        "defensive_reinforcement",
+        "tactical_switch"
+      ],
+      "reaction_to_leading": "defensive",
+      "reaction_to_trailing": "moderate",
+      "reaction_to_red_card": "defensive",
+      "reaction_to_conceding": "moderate",
+      "reaction_to_scoring": "defensive",
+      "rotation_tendency": 0.5,
+      "risk_tolerance": 0.45,
+      "big_match_behavior": "cautious",
+      "late_game_behavior": "game_management",
+      "aggressiveness": 0.55
+    },
+    {
+      "coach_id": "coach-mil",
+      "team_id": "team-mil",
+      "name": "Stefano Riva",
+      "preferred_formations": [
+        "4-2-3-1",
+        "4-4-2"
+      ],
+      "tactical_flexibility": 0.55,
+      "substitution_timing": {
+        "early": 0.15,
+        "mid": 0.55,
+        "late": 0.3
+      },
+      "substitution_patterns": [
+        "defensive_reinforcement",
+        "tactical_switch"
+      ],
+      "reaction_to_leading": "defensive",
+      "reaction_to_trailing": "moderate",
+      "reaction_to_red_card": "defensive",
+      "reaction_to_conceding": "moderate",
+      "reaction_to_scoring": "moderate",
+      "rotation_tendency": 0.45,
+      "risk_tolerance": 0.48,
+      "big_match_behavior": "cautious",
+      "late_game_behavior": "game_management",
+      "aggressiveness": 0.58
+    },
+    {
+      "coach_id": "coach-psg",
+      "team_id": "team-psg",
+      "name": "Antoine Mercier",
+      "preferred_formations": [
+        "4-3-3",
+        "4-2-3-1"
+      ],
+      "tactical_flexibility": 0.52,
+      "substitution_timing": {
+        "early": 0.15,
+        "mid": 0.55,
+        "late": 0.3
+      },
+      "substitution_patterns": [
+        "attacking_replacement",
+        "fatigue_rotation"
+      ],
+      "reaction_to_leading": "moderate",
+      "reaction_to_trailing": "aggressive",
+      "reaction_to_red_card": "balanced",
+      "reaction_to_conceding": "aggressive",
+      "reaction_to_scoring": "moderate",
+      "rotation_tendency": 0.35,
+      "risk_tolerance": 0.62,
+      "big_match_behavior": "pragmatic",
+      "late_game_behavior": "push_for_winner",
+      "aggressiveness": 0.68
+    },
+    {
+      "coach_id": "coach-om",
+      "team_id": "team-om",
+      "name": "Karim Benaissa",
+      "preferred_formations": [
+        "4-2-3-1",
+        "4-3-3"
+      ],
+      "tactical_flexibility": 0.58,
+      "substitution_timing": {
+        "early": 0.2,
+        "mid": 0.55,
+        "late": 0.25
+      },
+      "substitution_patterns": [
+        "tactical_switch",
+        "young_player_introduction"
+      ],
+      "reaction_to_leading": "defensive",
+      "reaction_to_trailing": "aggressive",
+      "reaction_to_red_card": "defensive",
+      "reaction_to_conceding": "moderate",
+      "reaction_to_scoring": "moderate",
+      "rotation_tendency": 0.5,
+      "risk_tolerance": 0.55,
+      "big_match_behavior": "pragmatic",
+      "late_game_behavior": "push_for_winner",
+      "aggressiveness": 0.62
+    }
+  ]
+}

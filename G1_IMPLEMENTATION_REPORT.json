@@ -1,0 +1,54 @@
+{
+  "report": {
+    "id": "G1_IMPLEMENTATION",
+    "date_utc": "2026-09-13T05:01:00Z",
+    "basis": "G1_CURRENT_AUDIT.md/.json",
+    "scope_changed": ["forward_pipeline/config.py (constants only)", "forward_pipeline/scheduler.py (hardening, capture semantics untouched)", "watchdog.ps1 (new)", "install_startup.ps1 (new)", "tests/understat_forward/ (new)"],
+    "untouched_verified": {
+      "frozen_dataset_sha256_unchanged": "8f885fbcc38aca3f4ea0b88a925b07db23244fccec7ed09b1f7cb55c45b13442",
+      "pipeline_capture_semantics": true,
+      "m4_o2_prediction_module": true,
+      "historical_experiment_artifacts": true,
+      "existing_raw_responses": "append-only preserved; no overwrite"
+    }
+  },
+  "fixes": {
+    "R3_recheck_schedule_overwrite": "pending schedule snapshotted before league loop; overdue checkpoints executed/covered after it; no longer silently dropped",
+    "R4_recheck_runaway": "t24/t7d done-flags; same-cycle capture covers recheck without extra fetch",
+    "R6_silent_death": "per-league + per-cycle exception guards; cycle_error/league_cycle_error/recheck_cycle_error logged",
+    "R7_no_lock": "scheduler.lock with 30-min freshness, stale takeover, honored by --once/--daemon",
+    "R8_hardcoded_store": "state/runs/lock derived from store param (default production data/ unchanged)",
+    "R9_implicit_utc": "config.PROVIDER_DATETIME_CONVENTION explicit; attached to every run entry",
+    "R10_invisible_stall": "operational_gap_detected entry when last_run older than 48h",
+    "R1_no_persistence": "scheduled task P53P1-UnderstatForwardScheduler (15min --once, IgnoreNew, StartWhenAvailable) registered Ready; watchdog.ps1 + install_startup.ps1 added"
+  },
+  "production_recovery_run": {
+    "at": "2026-09-13T04:59:34Z",
+    "operational_gap_logged_hours": 445.2,
+    "real_captures": 5,
+    "capture_labels": "captured_late (window_late) - excluded from future validation",
+    "registry_entries_after": 13,
+    "chain_intact": true,
+    "sha_sidecar_registry_consistent": true,
+    "idempotent_second_run": "5x skip_dup, 0 new captures",
+    "revision_rechecks": {
+      "leagues": ["E0", "SP1", "I1"],
+      "mode": "revision_recheck_covered_by_capture",
+      "scheduled_points_covered": ["t24", "t7d"],
+      "pre_registered_points_missed": {"t24": true, "t7d": true},
+      "t24_latency_hours": 427.0,
+      "t7d_latency_hours": 283.0,
+      "n_revision_events": 0,
+      "note": "diff vs first capture (08-24 baselines): no xG revision observed; F1 had no pending schedule (orphaned pre-deployment, audit R3 instance); its baseline diff covered by this cycle's capture revision_events",
+      "fresh_schedules_all_5_leagues": {"t24_due": "2026-09-14T05:59Z", "t7d_due": "2026-09-20T05:59Z"}
+    }
+  },
+  "persistence_status": {
+    "scheduled_task_15min": {"registered": true, "state": "Ready", "first_run_result": 3, "first_run_interpretation": "refused by daemon lock - double-run prevention verified in production"},
+    "daemon_plus_watchdog": {"running": true, "daemon_pid": 18116, "watchdog": "5-min check, restarts daemon on stale lock", "heartbeat": "last_run updated each cycle"},
+    "startup_folder_autostart": {"installed": false, "reason": "sandbox denied write to Startup folder (PowerShell and bash both Permission denied)", "manual_step": "powershell -ExecutionPolicy Bypass -File install_startup.ps1", "coverage_without_it": "scheduled task layer maintains capture across reboots; only the always-on daemon layer is missing until the user runs the installer"}
+  },
+  "regression_tests": {"file": "tests/understat_forward/test_scheduler.py", "n": 17, "result": "OK", "production_store_touched_by_tests": false},
+  "sandbox_live_validation": {"real_fetch": true, "leagues": 5, "result": "captured_late x5, 174 window_late + 1578 upcoming_fixture, sandbox discarded afterwards"},
+  "hard_prohibitions_respected": ["no dry-run as real data", "no window_late as time_safe", "no CLOSING", "no historical_retro", "no generated_at/published_at inference", "no frozen data modification", "no Understat influence on M4/O2 probabilities", "no Agent/Ensemble/increment experiment/betting"]
+}

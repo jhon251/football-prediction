@@ -1,0 +1,329 @@
+{
+  "note": "SYNTHETIC MOCK DATA",
+  "lineups": [
+    {
+      "match_id": "match-demo-001",
+      "team_id": "team-ars",
+      "formation": "4-3-3",
+      "starters": [
+        "team-ars-p01",
+        "team-ars-p00",
+        "team-ars-p21",
+        "team-ars-p05",
+        "team-ars-p04",
+        "team-ars-p14",
+        "team-ars-p07",
+        "team-ars-p18",
+        "team-ars-p17",
+        "team-ars-p11",
+        "team-ars-p13"
+      ],
+      "bench": [
+        "team-ars-p19",
+        "team-ars-p02",
+        "team-ars-p03",
+        "team-ars-p06",
+        "team-ars-p12",
+        "team-ars-p10",
+        "team-ars-p20",
+        "team-ars-p09",
+        "team-ars-p16"
+      ],
+      "captain": "team-ars-p04",
+      "confirmed": true,
+      "reported_at": "2026-08-20T17:30:00+00:00"
+    },
+    {
+      "match_id": "match-demo-001",
+      "team_id": "team-che",
+      "formation": "4-2-3-1",
+      "starters": [
+        "team-che-p08",
+        "team-che-p13",
+        "team-che-p17",
+        "team-che-p11",
+        "team-che-p06",
+        "team-che-p07",
+        "team-che-p15",
+        "team-che-p19",
+        "team-che-p20",
+        "team-che-p02",
+        "team-che-p04"
+      ],
+      "bench": [
+        "team-che-p12",
+        "team-che-p14",
+        "team-che-p05",
+        "team-che-p18",
+        "team-che-p00",
+        "team-che-p09",
+        "team-che-p01",
+        "team-che-p03",
+        "team-che-p16"
+      ],
+      "captain": "team-che-p06",
+      "confirmed": true,
+      "reported_at": "2026-08-20T17:30:00+00:00"
+    },
+    {
+      "match_id": "match-demo-001",
+      "team_id": "team-rma",
+      "formation": "4-3-3",
+      "starters": [
+        "team-rma-p05",
+        "team-rma-p08",
+        "team-rma-p04",
+        "team-rma-p20",
+        "team-rma-p07",
+        "team-rma-p21",
+        "team-rma-p13",
+        "team-rma-p14",
+        "team-rma-p18",
+        "team-rma-p10",
+        "team-rma-p06"
+      ],
+      "bench": [
+        "team-rma-p16",
+        "team-rma-p02",
+        "team-rma-p17",
+        "team-rma-p11",
+        "team-rma-p01",
+        "team-rma-p03",
+        "team-rma-p09",
+        "team-rma-p15",
+        "team-rma-p19"
+      ],
+      "captain": "team-rma-p07",
+      "confirmed": true,
+      "reported_at": "2026-08-20T17:30:00+00:00"
+    },
+    {
+      "match_id": "match-demo-001",
+      "team_id": "team-bar",
+      "formation": "4-3-3",
+      "starters": [
+        "team-bar-p11",
+        "team-bar-p17",
+        "team-bar-p10",
+        "team-bar-p16",
+        "team-bar-p15",
+        "team-bar-p06",
+        "team-bar-p09",
+        "team-bar-p02",
+        "team-bar-p19",
+        "team-bar-p21",
+        "team-bar-p08"
+      ],
+      "bench": [
+        "team-bar-p05",
+        "team-bar-p13",
+        "team-bar-p12",
+        "team-bar-p01",
+        "team-bar-p00",
+        "team-bar-p07",
+        "team-bar-p18",
+        "team-bar-p03",
+        "team-bar-p14",
+        "team-bar-p04"
+      ],
+      "captain": "team-bar-p15",
+      "confirmed": true,
+      "reported_at": "2026-08-20T17:30:00+00:00"
+    },
+    {
+      "match_id": "match-demo-001",
+      "team_id": "team-bay",
+      "formation": "4-2-3-1",
+      "starters": [
+        "team-bay-p17",
+        "team-bay-p09",
+        "team-bay-p15",
+        "team-bay-p10",
+        "team-bay-p16",
+        "team-bay-p18",
+        "team-bay-p12",
+        "team-bay-p11",
+        "team-bay-p08",
+        "team-bay-p02",
+        "team-bay-p03"
+      ],
+      "bench": [
+        "team-bay-p07",
+        "team-bay-p05",
+        "team-bay-p13",
+        "team-bay-p01",
+        "team-bay-p04",
+        "team-bay-p19",
+        "team-bay-p14",
+        "team-bay-p00",
+        "team-bay-p20",
+        "team-bay-p21"
+      ],
+      "captain": "team-bay-p16",
+      "confirmed": true,
+      "reported_at": "2026-08-20T17:30:00+00:00"
+    },
+    {
+      "match_id": "match-demo-001",
+      "team_id": "team-bvb",
+      "formation": "4-3-3",
+      "starters": [
+        "team-bvb-p13",
+        "team-bvb-p02",
+        "team-bvb-p09",
+        "team-bvb-p18",
+        "team-bvb-p14",
+        "team-bvb-p20",
+        "team-bvb-p17",
+        "team-bvb-p03",
+        "team-bvb-p16",
+        "team-bvb-p21",
+        "team-bvb-p10"
+      ],
+      "bench": [
+        "team-bvb-p15",
+        "team-bvb-p19",
+        "team-bvb-p04",
+        "team-bvb-p11",
+        "team-bvb-p08",
+        "team-bvb-p06",
+        "team-bvb-p05",
+        "team-bvb-p07",
+        "team-bvb-p01"
+      ],
+      "captain": "team-bvb-p14",
+      "confirmed": true,
+      "reported_at": "2026-08-20T17:30:00+00:00"
+    },
+    {
+      "match_id": "match-demo-001",
+      "team_id": "team-int",
+      "formation": "3-5-2",
+      "starters": [
+        "team-int-p05",
+        "team-int-p11",
+        "team-int-p13",
+        "team-int-p08",
+        "team-int-p20",
+        "team-int-p04",
+        "team-int-p07",
+        "team-int-p09",
+        "team-int-p19",
+        "team-int-p00",
+        "team-int-p16"
+      ],
+      "bench": [
+        "team-int-p18",
+        "team-int-p15",
+        "team-int-p01",
+        "team-int-p06",
+        "team-int-p12",
+        "team-int-p14",
+        "team-int-p03",
+        "team-int-p17",
+        "team-int-p02"
+      ],
+      "captain": "team-int-p20",
+      "confirmed": true,
+      "reported_at": "2026-08-20T17:30:00+00:00"
+    },
+    {
+      "match_id": "match-demo-001",
+      "team_id": "team-mil",
+      "formation": "4-2-3-1",
+      "starters": [
+        "team-mil-p04",
+        "team-mil-p15",
+        "team-mil-p11",
+        "team-mil-p16",
+        "team-mil-p10",
+        "team-mil-p18",
+        "team-mil-p19",
+        "team-mil-p14",
+        "team-mil-p02",
+        "team-mil-p05",
+        "team-mil-p03"
+      ],
+      "bench": [
+        "team-mil-p08",
+        "team-mil-p09",
+        "team-mil-p21",
+        "team-mil-p06",
+        "team-mil-p13",
+        "team-mil-p01",
+        "team-mil-p07",
+        "team-mil-p17",
+        "team-mil-p00",
+        "team-mil-p12"
+      ],
+      "captain": "team-mil-p10",
+      "confirmed": true,
+      "reported_at": "2026-08-20T17:30:00+00:00"
+    },
+    {
+      "match_id": "match-demo-001",
+      "team_id": "team-psg",
+      "formation": "4-3-3",
+      "starters": [
+        "team-psg-p03",
+        "team-psg-p18",
+        "team-psg-p14",
+        "team-psg-p19",
+        "team-psg-p16",
+        "team-psg-p10",
+        "team-psg-p04",
+        "team-psg-p05",
+        "team-psg-p00",
+        "team-psg-p01",
+        "team-psg-p15"
+      ],
+      "bench": [
+        "team-psg-p17",
+        "team-psg-p09",
+        "team-psg-p12",
+        "team-psg-p20",
+        "team-psg-p13",
+        "team-psg-p11",
+        "team-psg-p02",
+        "team-psg-p08",
+        "team-psg-p07",
+        "team-psg-p21"
+      ],
+      "captain": "team-psg-p16",
+      "confirmed": true,
+      "reported_at": "2026-08-20T17:30:00+00:00"
+    },
+    {
+      "match_id": "match-demo-001",
+      "team_id": "team-om",
+      "formation": "4-2-3-1",
+      "starters": [
+        "team-om-p10",
+        "team-om-p02",
+        "team-om-p00",
+        "team-om-p08",
+        "team-om-p20",
+        "team-om-p19",
+        "team-om-p18",
+        "team-om-p07",
+        "team-om-p12",
+        "team-om-p14",
+        "team-om-p09"
+      ],
+      "bench": [
+        "team-om-p11",
+        "team-om-p06",
+        "team-om-p21",
+        "team-om-p16",
+        "team-om-p03",
+        "team-om-p05",
+        "team-om-p04",
+        "team-om-p17",
+        "team-om-p13"
+      ],
+      "captain": "team-om-p20",
+      "confirmed": true,
+      "reported_at": "2026-08-20T17:30:00+00:00"
+    }
+  ]
+}

@@ -1,0 +1,510 @@
+{
+  "kb_id": "kb-default-v1",
+  "name": "default_v1",
+  "version": 1,
+  "rules": [
+    {
+      "rule_id": "R_MENTALITY_LEAD_TEMPO",
+      "name": "leading_team_tempo_moderation",
+      "category": "rules",
+      "description": "A leading team typically moderates tempo; magnitude depends on the coach's defensive tendency.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.55,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "mentality_home", "op": "eq", "value": "leading"},
+        {"field": "home_coach.reaction_to_leading", "op": "eq", "value": "defensive"}
+      ]},
+      "effects": [
+        {"target": "home_tactical_state.tempo_contribution", "op": "add", "value": -0.15, "confidence": 0.55, "reason": "leading + defensive coach"},
+        {"target": "home_tactical_state.risk_level", "op": "add", "value": -0.10, "confidence": 0.55, "reason": "leading + defensive coach"},
+        {"target": "home_tactical_state.attacking_intensity", "op": "add", "value": -0.08, "confidence": 0.50, "reason": "leading + defensive coach"}
+      ],
+      "tags": ["state_transition", "mentality"],
+      "active": true
+    },
+    {
+      "rule_id": "R_MENTALITY_LEAD_AWAY_TEMPO",
+      "name": "leading_team_tempo_moderation_away",
+      "category": "rules",
+      "description": "Same moderation behaviour for the away side.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.55,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "mentality_away", "op": "eq", "value": "leading"},
+        {"field": "away_coach.reaction_to_leading", "op": "eq", "value": "defensive"}
+      ]},
+      "effects": [
+        {"target": "away_tactical_state.tempo_contribution", "op": "add", "value": -0.15, "confidence": 0.55, "reason": "leading + defensive coach"},
+        {"target": "away_tactical_state.risk_level", "op": "add", "value": -0.10, "confidence": 0.55, "reason": "leading + defensive coach"},
+        {"target": "away_tactical_state.attacking_intensity", "op": "add", "value": -0.08, "confidence": 0.50, "reason": "leading + defensive coach"}
+      ],
+      "tags": ["state_transition", "mentality"],
+      "active": true
+    },
+    {
+      "rule_id": "R_MENTALITY_TRAIL_PUSH",
+      "name": "trailing_team_push",
+      "category": "rules",
+      "description": "A trailing team increases attacking intensity and risk; stronger after the 60th minute.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.60,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "mentality_home", "op": "eq", "value": "trailing"},
+        {"field": "minute", "op": "gte", "value": 15}
+      ]},
+      "effects": [
+        {"target": "home_tactical_state.attacking_intensity", "op": "add", "value": 0.12, "confidence": 0.60, "reason": "trailing"},
+        {"target": "home_tactical_state.risk_level", "op": "add", "value": 0.15, "confidence": 0.60, "reason": "trailing"},
+        {"target": "home_tactical_state.tempo_contribution", "op": "add", "value": 0.05, "confidence": 0.50, "reason": "trailing"},
+        {"target": "home_tactical_state.transition_risk", "op": "add", "value": 0.08, "confidence": 0.55, "reason": "chasing leaves space behind"}
+      ],
+      "tags": ["state_transition", "mentality"],
+      "active": true
+    },
+    {
+      "rule_id": "R_MENTALITY_TRAIL_PUSH_AWAY",
+      "name": "trailing_team_push_away",
+      "category": "rules",
+      "description": "Same trailing behaviour for the away side.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.60,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "mentality_away", "op": "eq", "value": "trailing"},
+        {"field": "minute", "op": "gte", "value": 15}
+      ]},
+      "effects": [
+        {"target": "away_tactical_state.attacking_intensity", "op": "add", "value": 0.12, "confidence": 0.60, "reason": "trailing"},
+        {"target": "away_tactical_state.risk_level", "op": "add", "value": 0.15, "confidence": 0.60, "reason": "trailing"},
+        {"target": "away_tactical_state.tempo_contribution", "op": "add", "value": 0.05, "confidence": 0.50, "reason": "trailing"},
+        {"target": "away_tactical_state.transition_risk", "op": "add", "value": 0.08, "confidence": 0.55, "reason": "chasing leaves space behind"}
+      ],
+      "tags": ["state_transition", "mentality"],
+      "active": true
+    },
+    {
+      "rule_id": "R_TRAIL_DESPERATE_LATE",
+      "name": "trailing_late_desperation",
+      "category": "rules",
+      "description": "Trailing after 75 minutes produces a desperate, high-risk push.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.60,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "mentality_home", "op": "eq", "value": "trailing"},
+        {"field": "is_late_game", "op": "eq", "value": 1.0}
+      ]},
+      "effects": [
+        {"target": "home_tactical_state.attacking_intensity", "op": "add", "value": 0.10, "confidence": 0.60, "reason": "late desperation"},
+        {"target": "home_tactical_state.risk_level", "op": "add", "value": 0.10, "confidence": 0.60, "reason": "late desperation"},
+        {"target": "home_tactical_state.tempo_contribution", "op": "add", "value": 0.08, "confidence": 0.55, "reason": "late desperation"}
+      ],
+      "tags": ["state_transition", "mentality", "late_game"],
+      "active": true
+    },
+    {
+      "rule_id": "R_TRAIL_DESPERATE_LATE_AWAY",
+      "name": "trailing_late_desperation_away",
+      "category": "rules",
+      "description": "Same late desperation for the away side.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.60,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "mentality_away", "op": "eq", "value": "trailing"},
+        {"field": "is_late_game", "op": "eq", "value": 1.0}
+      ]},
+      "effects": [
+        {"target": "away_tactical_state.attacking_intensity", "op": "add", "value": 0.10, "confidence": 0.60, "reason": "late desperation"},
+        {"target": "away_tactical_state.risk_level", "op": "add", "value": 0.10, "confidence": 0.60, "reason": "late desperation"},
+        {"target": "away_tactical_state.tempo_contribution", "op": "add", "value": 0.08, "confidence": 0.55, "reason": "late desperation"}
+      ],
+      "tags": ["state_transition", "mentality", "late_game"],
+      "active": true
+    },
+    {
+      "rule_id": "R_LEAD_LATE_GAME_MANAGEMENT",
+      "name": "leading_late_game_management",
+      "category": "rules",
+      "description": "Leading after 75 minutes: deeper block, slower tempo, lower risk.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.55,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "mentality_home", "op": "eq", "value": "leading"},
+        {"field": "is_late_game", "op": "eq", "value": 1.0}
+      ]},
+      "effects": [
+        {"target": "home_tactical_state.tempo_contribution", "op": "add", "value": -0.10, "confidence": 0.55, "reason": "game management"},
+        {"target": "home_tactical_state.risk_level", "op": "add", "value": -0.08, "confidence": 0.55, "reason": "game management"},
+        {"target": "home_tactical_state.defensive_line", "op": "add", "value": -0.08, "confidence": 0.50, "reason": "deeper block late"}
+      ],
+      "tags": ["state_transition", "mentality", "late_game"],
+      "active": true
+    },
+    {
+      "rule_id": "R_LEAD_LATE_GAME_MANAGEMENT_AWAY",
+      "name": "leading_late_game_management_away",
+      "category": "rules",
+      "description": "Same late game management for the away side.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.55,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "mentality_away", "op": "eq", "value": "leading"},
+        {"field": "is_late_game", "op": "eq", "value": 1.0}
+      ]},
+      "effects": [
+        {"target": "away_tactical_state.tempo_contribution", "op": "add", "value": -0.10, "confidence": 0.55, "reason": "game management"},
+        {"target": "away_tactical_state.risk_level", "op": "add", "value": -0.08, "confidence": 0.55, "reason": "game management"},
+        {"target": "away_tactical_state.defensive_line", "op": "add", "value": -0.08, "confidence": 0.50, "reason": "deeper block late"}
+      ],
+      "tags": ["state_transition", "mentality", "late_game"],
+      "active": true
+    },
+    {
+      "rule_id": "R_RED_CARD_HOME_DISADVANTAGE",
+      "name": "red_card_home_disadvantage",
+      "category": "rules",
+      "description": "A red card forces formation restructuring and reduces attacking output while boosting the opponent's share.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.75,
+      "evidence_count": 0,
+      "condition": {"field": "players_on_pitch_home", "op": "lt", "value": 11},
+      "effects": [
+        {"target": "home_tactical_state.chance_creation_modifier", "op": "multiply", "value": 0.68, "confidence": 0.75, "reason": "numerical disadvantage"},
+        {"target": "home_tactical_state.attacking_intensity", "op": "add", "value": -0.15, "confidence": 0.70, "reason": "numerical disadvantage"},
+        {"target": "home_tactical_state.pressing_intensity", "op": "add", "value": -0.12, "confidence": 0.65, "reason": "numerical disadvantage"},
+        {"target": "away_tactical_state.pressing_intensity", "op": "add", "value": 0.08, "confidence": 0.60, "reason": "opponent down to ten"}
+      ],
+      "tags": ["state_transition", "red_card"],
+      "active": true
+    },
+    {
+      "rule_id": "R_RED_CARD_AWAY_DISADVANTAGE",
+      "name": "red_card_away_disadvantage",
+      "category": "rules",
+      "description": "Same red card disadvantage for the away side.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.75,
+      "evidence_count": 0,
+      "condition": {"field": "players_on_pitch_away", "op": "lt", "value": 11},
+      "effects": [
+        {"target": "away_tactical_state.chance_creation_modifier", "op": "multiply", "value": 0.68, "confidence": 0.75, "reason": "numerical disadvantage"},
+        {"target": "away_tactical_state.attacking_intensity", "op": "add", "value": -0.15, "confidence": 0.70, "reason": "numerical disadvantage"},
+        {"target": "away_tactical_state.pressing_intensity", "op": "add", "value": -0.12, "confidence": 0.65, "reason": "numerical disadvantage"},
+        {"target": "home_tactical_state.pressing_intensity", "op": "add", "value": 0.08, "confidence": 0.60, "reason": "opponent down to ten"}
+      ],
+      "tags": ["state_transition", "red_card"],
+      "active": true
+    },
+    {
+      "rule_id": "R_GOAL_DOWN_MOMENTUM",
+      "name": "goal_shifts_momentum",
+      "category": "rules",
+      "description": "Conceding shifts momentum toward the opponent (primary effect handled by the state machine; this rule models the residual).",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.50,
+      "evidence_count": 0,
+      "condition": {"field": "goal_diff_home", "op": "lt", "value": 0},
+      "effects": [
+        {"target": "home_psychological_state.pressure", "op": "add", "value": 0.06, "confidence": 0.50, "reason": "chasing the game"},
+        {"target": "away_psychological_state.confidence", "op": "add", "value": 0.04, "confidence": 0.50, "reason": "leading"}
+      ],
+      "tags": ["state_transition", "psychology"],
+      "active": true
+    },
+    {
+      "rule_id": "R_GOAL_UP_MOMENTUM",
+      "name": "goal_up_momentum",
+      "category": "rules",
+      "description": "Leading relieves pressure and lifts confidence slightly.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.50,
+      "evidence_count": 0,
+      "condition": {"field": "goal_diff_home", "op": "gt", "value": 0},
+      "effects": [
+        {"target": "home_psychological_state.confidence", "op": "add", "value": 0.04, "confidence": 0.50, "reason": "leading"},
+        {"target": "away_psychological_state.pressure", "op": "add", "value": 0.06, "confidence": 0.50, "reason": "chasing the game"}
+      ],
+      "tags": ["state_transition", "psychology"],
+      "active": true
+    },
+    {
+      "rule_id": "R_FATIGUE_LATE_DECLINE",
+      "name": "fatigue_late_decline",
+      "category": "rules",
+      "description": "High accumulated fatigue in the last quarter reduces chance creation quality.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.60,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "is_late_game", "op": "eq", "value": 1.0},
+        {"field": "fatigue_home", "op": "gt", "value": 0.55}
+      ]},
+      "effects": [
+        {"target": "home_tactical_state.chance_creation_modifier", "op": "multiply", "value": 0.88, "confidence": 0.60, "reason": "late fatigue"}
+      ],
+      "tags": ["fitness", "late_game"],
+      "active": true
+    },
+    {
+      "rule_id": "R_FATIGUE_LATE_DECLINE_AWAY",
+      "name": "fatigue_late_decline_away",
+      "category": "rules",
+      "description": "Same late fatigue decline for the away side.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.60,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "is_late_game", "op": "eq", "value": 1.0},
+        {"field": "fatigue_away", "op": "gt", "value": 0.55}
+      ]},
+      "effects": [
+        {"target": "away_tactical_state.chance_creation_modifier", "op": "multiply", "value": 0.88, "confidence": 0.60, "reason": "late fatigue"}
+      ],
+      "tags": ["fitness", "late_game"],
+      "active": true
+    },
+    {
+      "rule_id": "R_RAIN_EFFECT",
+      "name": "rain_reduces_chance_quality",
+      "category": "principles",
+      "description": "Heavy rain degrades passing quality and chance conversion slightly.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.45,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "weather_state.rain", "op": "known", "value": null},
+        {"field": "weather_state.rain", "op": "gt", "value": 0.6}
+      ]},
+      "effects": [
+        {"target": "home_tactical_state.chance_creation_modifier", "op": "multiply", "value": 0.94, "confidence": 0.45, "reason": "heavy rain"},
+        {"target": "away_tactical_state.chance_creation_modifier", "op": "multiply", "value": 0.94, "confidence": 0.45, "reason": "heavy rain"}
+      ],
+      "tags": ["environment", "weather"],
+      "active": true
+    },
+    {
+      "rule_id": "R_HEAT_EFFECT",
+      "name": "heat_lowers_tempo",
+      "category": "principles",
+      "description": "High temperature lowers sustainable tempo.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.45,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "weather_state.temperature_c", "op": "known", "value": null},
+        {"field": "weather_state.temperature_c", "op": "gt", "value": 30.0}
+      ]},
+      "effects": [
+        {"target": "home_tactical_state.tempo_contribution", "op": "add", "value": -0.08, "confidence": 0.45, "reason": "heat"},
+        {"target": "away_tactical_state.tempo_contribution", "op": "add", "value": -0.08, "confidence": 0.45, "reason": "heat"}
+      ],
+      "tags": ["environment", "weather"],
+      "active": true
+    },
+    {
+      "rule_id": "R_WIND_EFFECT",
+      "name": "wind_aids_long_range",
+      "category": "principles",
+      "description": "Strong wind slightly boosts long-range shooting variance.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.35,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "weather_state.wind", "op": "known", "value": null},
+        {"field": "weather_state.wind", "op": "gt", "value": 0.7}
+      ]},
+      "effects": [
+        {"target": "home_tactical_state.chance_creation_modifier", "op": "multiply", "value": 0.98, "confidence": 0.35, "reason": "wind"},
+        {"target": "away_tactical_state.chance_creation_modifier", "op": "multiply", "value": 0.98, "confidence": 0.35, "reason": "wind"}
+      ],
+      "tags": ["environment", "weather"],
+      "active": true
+    },
+    {
+      "rule_id": "R_PRESSURE_DECISION_QUALITY",
+      "name": "pressure_degrades_decisions",
+      "category": "principles",
+      "description": "Very high pressure slightly degrades decision quality and composure.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.45,
+      "evidence_count": 0,
+      "condition": {"field": "home_psychological_state.pressure", "op": "gt", "value": 0.7},
+      "effects": [
+        {"target": "home_psychological_state.decision_quality", "op": "add", "value": -0.06, "confidence": 0.45, "reason": "high pressure"},
+        {"target": "home_psychological_state.composure", "op": "add", "value": -0.05, "confidence": 0.45, "reason": "high pressure"}
+      ],
+      "tags": ["psychology"],
+      "active": true
+    },
+    {
+      "rule_id": "R_PRESSURE_DECISION_QUALITY_AWAY",
+      "name": "pressure_degrades_decisions_away",
+      "category": "principles",
+      "description": "Same pressure effect for the away side.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.45,
+      "evidence_count": 0,
+      "condition": {"field": "away_psychological_state.pressure", "op": "gt", "value": 0.7},
+      "effects": [
+        {"target": "away_psychological_state.decision_quality", "op": "add", "value": -0.06, "confidence": 0.45, "reason": "high pressure"},
+        {"target": "away_psychological_state.composure", "op": "add", "value": -0.05, "confidence": 0.45, "reason": "high pressure"}
+      ],
+      "tags": ["psychology"],
+      "active": true
+    },
+    {
+      "rule_id": "R_HIGH_CONFIDENCE_ATTACK",
+      "name": "high_confidence_attacking_flow",
+      "category": "principles",
+      "description": "Very confident sides attack with slightly more fluency.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.45,
+      "evidence_count": 0,
+      "condition": {"field": "home_psychological_state.confidence", "op": "gt", "value": 0.7},
+      "effects": [
+        {"target": "home_tactical_state.chance_creation_modifier", "op": "multiply", "value": 1.04, "confidence": 0.45, "reason": "high confidence"}
+      ],
+      "tags": ["psychology"],
+      "active": true
+    },
+    {
+      "rule_id": "R_HIGH_CONFIDENCE_ATTACK_AWAY",
+      "name": "high_confidence_attacking_flow_away",
+      "category": "principles",
+      "description": "Same confidence effect for the away side.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.45,
+      "evidence_count": 0,
+      "condition": {"field": "away_psychological_state.confidence", "op": "gt", "value": 0.7},
+      "effects": [
+        {"target": "away_tactical_state.chance_creation_modifier", "op": "multiply", "value": 1.04, "confidence": 0.45, "reason": "high confidence"}
+      ],
+      "tags": ["psychology"],
+      "active": true
+    },
+    {
+      "rule_id": "R_YELLOW_CARD_CAUTION",
+      "name": "yellow_card_accumulation_caution",
+      "category": "rules",
+      "description": "A team with many bookings presses slightly more cautiously.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.50,
+      "evidence_count": 0,
+      "condition": {"field": "yellow_cards_home", "op": "gte", "value": 3},
+      "effects": [
+        {"target": "home_tactical_state.pressing_intensity", "op": "add", "value": -0.06, "confidence": 0.50, "reason": "card caution"}
+      ],
+      "tags": ["discipline"],
+      "active": true
+    },
+    {
+      "rule_id": "R_YELLOW_CARD_CAUTION_AWAY",
+      "name": "yellow_card_accumulation_caution_away",
+      "category": "rules",
+      "description": "Same card caution for the away side.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.50,
+      "evidence_count": 0,
+      "condition": {"field": "yellow_cards_away", "op": "gte", "value": 3},
+      "effects": [
+        {"target": "away_tactical_state.pressing_intensity", "op": "add", "value": -0.06, "confidence": 0.50, "reason": "card caution"}
+      ],
+      "tags": ["discipline"],
+      "active": true
+    },
+    {
+      "rule_id": "R_MOMENTUM_CONFIDENCE_FEEDBACK",
+      "name": "momentum_confidence_feedback",
+      "category": "principles",
+      "description": "Sustained momentum feeds confidence.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.45,
+      "evidence_count": 0,
+      "condition": {"field": "momentum_home", "op": "gt", "value": 0.62},
+      "effects": [
+        {"target": "home_psychological_state.confidence", "op": "add", "value": 0.02, "confidence": 0.45, "reason": "momentum feedback"}
+      ],
+      "tags": ["momentum", "psychology"],
+      "active": true
+    },
+    {
+      "rule_id": "R_MOMENTUM_CONFIDENCE_FEEDBACK_AWAY",
+      "name": "momentum_confidence_feedback_away",
+      "category": "principles",
+      "description": "Same momentum feedback for the away side.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.45,
+      "evidence_count": 0,
+      "condition": {"field": "momentum_away", "op": "gt", "value": 0.62},
+      "effects": [
+        {"target": "away_psychological_state.confidence", "op": "add", "value": 0.02, "confidence": 0.45, "reason": "momentum feedback"}
+      ],
+      "tags": ["momentum", "psychology"],
+      "active": true
+    },
+    {
+      "rule_id": "R_HALF_TIME_RESET",
+      "name": "half_time_partial_reset",
+      "category": "rules",
+      "description": "The interval partially resets momentum toward neutral.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.55,
+      "evidence_count": 0,
+      "condition": {"field": "phase", "op": "eq", "value": "half_time"},
+      "effects": [
+        {"target": "momentum_home", "op": "set", "value": 0.5, "confidence": 0.55, "reason": "half-time reset"},
+        {"target": "momentum_away", "op": "set", "value": 0.5, "confidence": 0.55, "reason": "half-time reset"}
+      ],
+      "tags": ["state_transition"],
+      "active": true
+    },
+    {
+      "rule_id": "R_HOME_CROWD_SUPPORT",
+      "name": "home_crowd_support",
+      "category": "principles",
+      "description": "Home crowd raises home confidence slightly and feeds home momentum in key moments.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.45,
+      "evidence_count": 0,
+      "condition": {"field": "goal_diff_home", "op": "gte", "value": 0},
+      "effects": [
+        {"target": "home_psychological_state.crowd_support", "op": "add", "value": 0.04, "confidence": 0.45, "reason": "crowd behind the team"}
+      ],
+      "tags": ["psychology", "home_advantage"],
+      "active": true
+    }
+  ]
+}

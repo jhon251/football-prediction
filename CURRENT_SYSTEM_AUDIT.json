@@ -1,0 +1,111 @@
+{
+  "audit": {
+    "date": "2026-09-13",
+    "scope": "C:\\football full repository",
+    "method": "file-by-file inspection + live re-execution of leakage suites + frozen fingerprint recomputation + independent numerical reproduction of Phase4A",
+    "overall_verdict": "REPORTS_CONSISTENT_WITH_ENGINEERING_ONE_OPERATIONAL_GAP",
+    "stop_triggered": false
+  },
+  "labels_vocabulary": ["Evidence", "Hypothesis", "Unknown"],
+  "systems": [
+    {
+      "id": "A_simulation_engine",
+      "path": "src/football_simulation",
+      "nature": "V1/V1.2 digital-twin simulation engine, synthetic mock data, 30+ simulation agents",
+      "test_status": "244 tests PASS with PYTHONPATH=src (2026-09-13, Evidence); 12 import errors without PYTHONPATH (environment, not code)",
+      "is_prediction_agent": false,
+      "caveat": "simulation probabilities come from sandbox rules; 35 rules all tentative; must never be presented as market-layer prediction"
+    },
+    {
+      "id": "B_research_program",
+      "path": "backtest_output",
+      "nature": "Phase 2A-5.3 time-safe prediction research: dataset build, freeze v1.1.0, experiments, registries",
+      "is_prediction_agent": false,
+      "caveat": "no prediction module / signal layer / prediction API exists anywhere in this tree as of audit date"
+    }
+  ],
+  "frozen_dataset": {
+    "label": "HIST_FD_5L_2015_2026 v1.1.0",
+    "path": "backtest_output/dataset_build/freeze/1.1.0/baseline_dataset.jsonl",
+    "sha256_recomputed": "8f885fbcc38aca3f4ea0b88a925b07db23244fccec7ed09b1f7cb55c45b13442",
+    "sha256_matches_all_references": true,
+    "rows": 19763,
+    "freeze_verification": "FROZEN, 7/7 checks true",
+    "integrity_recheck_all_consistent": true,
+    "row_structure": "label(fthg/ftag/ftr) + odds.preclosing + odds.closing + provenance per row; preclosing namespace has no C-suffix keys",
+    "status": "Evidence"
+  },
+  "experiment_registry": {
+    "total_entries": 363,
+    "layout": "base registry phase3b_training/experiment_registry.jsonl (72) + per-phase experiment_registry_append.jsonl",
+    "files": [
+      {"path": "phase3b_training/experiment_registry.jsonl", "n": 72},
+      {"path": "phase3c_analysis/experiment_registry_append.jsonl", "n": 12},
+      {"path": "phase4a_market_baseline/experiment_registry_append.jsonl", "n": 62},
+      {"path": "phase4b_execution/experiment_registry_append.jsonl", "n": 15},
+      {"path": "phase4d_calibration_stability/experiment_registry_append.jsonl", "n": 24},
+      {"path": "phase5_1a_calibration_closure/experiment_registry_append.jsonl", "n": 96},
+      {"path": "phase5_1d_closing/experiment_registry_append.jsonl", "n": 24},
+      {"path": "phase5_2_xg_dq/experiment_registry_append.jsonl", "n": 16},
+      {"path": "phase5_2b_spi_dq/experiment_registry_append.jsonl", "n": 15},
+      {"path": "phase5_3_p1_understat_forward/experiment_registry_append.jsonl", "n": 27}
+    ],
+    "id_uniqueness": true,
+    "dataset_sha_in_entries": true,
+    "design_only_dirs_have_no_entries": true,
+    "status": "Evidence"
+  },
+  "phases": [
+    {"phase": "3B", "claim": "Market beats LR/LightGBM on FTR & OU25", "verdict": "CONFIRMED", "evidence_level": "Evidence", "verification": "exp_preflight_tests.py re-executed 2026-09-13: EXP-1..6 PASS, 6 negatives DETECTED; metrics match report", "metrics": {"ftr_market": [0.5337, 0.9719], "ftr_lr": [0.5147, 1.007], "ftr_lgbm": [0.4657, 1.0887]}},
+    {"phase": "3C", "claim": "Traditional features/Elo add no increment", "verdict": "CONFIRMED", "evidence_level": "Evidence", "verification": "report + run_ablation.py + 12 registry entries present; A0 baseline matches 3B market numbers; full re-run not repeated (noted)"},
+    {"phase": "4A", "claim": "M4 (multi-book+Shin) / O2 (B365+Shin) baselines", "verdict": "CONFIRMED", "evidence_level": "Evidence", "verification": "independent reproduction on frozen dataset 2026-09-13: M4 acc=0.534 LL=0.9707 brier=0.5776 n=3504; O2 acc=0.5799 LL=0.6725 brier=0.2399; M1/M2/O1/O4 identical to report", "weakness": "ODDS-P1 negatives NEG_C_suffix_in_input and NEG_label_as_input are tautological structural assertions; real protection is preclosing-only reads + preflight suite"},
+    {"phase": "4B", "claim": "calibration & segment diagnostics", "verdict": "CONFIRMED", "evidence_level": "Evidence", "verification": "run_phase4b.py + 15 registry entries; isotonic improves home/away LL in single Test; OU25 ECE~0.01 no headroom"},
+    {"phase": "4D", "claim": "calibration gains unstable across seasons", "verdict": "CONFIRMED", "evidence_level": "Evidence", "verification": "rolling per-season isotonic gains 1 positive / 5 negative seasons for ftr/home, ftr/away, ou25/over"},
+    {"phase": "5.1-A", "claim": "calibration branch CLOSED", "verdict": "CONFIRMED", "evidence_level": "Evidence", "verification": "all four families CLOSE (mean improvement -0.0034..-0.0121); gates EXP-1..6 + CS-1/CS-2 PASS"},
+    {"phase": "5.1-D", "claim": "CLOSING sub-threshold, CONDITIONAL not SAFE", "verdict": "CONFIRMED", "evidence_level": "Evidence", "verification": "dLL FTR +0.0014 / OU25 +0.0024 < 0.003 gate; CLOSE-1..4 PASS; 5 negatives DETECTED; VCA/VCD/VCH mis-namespacing registered and excluded"},
+    {"phase": "5.2", "claim": "historical time-safe external acquisition FAILED, route closed", "verdict": "CONFIRMED", "evidence_level": "Evidence", "verification": "XG-1 timestamp FAIL, XG-5 coverage FAIL (28/30 cells missing); SPI SPI-4/5 UNKNOWN; 5.2-F formally closed route, mandated forward validation; FAIL/UNKNOWN honestly recorded in registry"},
+    {"phase": "5.3-P1", "claim": "Understat forward accumulation pipeline dry-run 12/12 PASS", "verdict": "CONFIRMED_WITH_OPERATIONAL_GAP", "evidence_level": "Evidence", "verification": "pipeline.py/scheduler.py/config.py real; dryrun_validation_result.json 12/12 PASS + 9/9 negatives DETECTED; validator logic read line-by-line", "operational_gap": "G1"}
+  ],
+  "namespace_isolation": {
+    "forward_vs_dq_validation_vs_frozen": true,
+    "retro_injection_guard": "forward namespace rejects non-current season (pipeline.py capture guard; N1 test)",
+    "historical_retro_label": "dq_validation namespace results labeled historical_retro and excluded from forward set (N1b scan)",
+    "generated_at_published_at": "always None (UNKNOWN), never inferred; enforced in sidecar and norm records",
+    "frozen_read_only": "sha256 verified before every capture (_frozen_index)",
+    "status": "Evidence"
+  },
+  "leakage_scan": {
+    "closing_as_safe": false,
+    "test_reuse": false,
+    "label_leakage": false,
+    "historical_backfill": false,
+    "unverified_signal_wiring": false,
+    "betting_roi_ev_code": false,
+    "live_reverification_2026_09_13": ["phase3b preflight EXP-1..6 PASS + negatives DETECTED", "dataset_build leakage T1-T10/S1-S5 PASS"]
+  },
+  "prediction_capability": {
+    "runnable_market_baseline": {"ftr": "M4", "ou25": "O2", "evidence_level": "Evidence", "note": "pure functions of preclosing odds; independently reproduced"},
+    "agent": {"exists": false, "status": "roadmap concept in phase5_review only (design)"},
+    "signal_layer": {"exists": false},
+    "prediction_api": {"exists": false},
+    "understat_forward_usable_records": {"time_safe": 0, "window_late": 76, "captures": 8, "as_of": "2026-09-13"},
+    "unknowns": [
+      "whether scheduler is restarted by an external mechanism not visible in repo",
+      "whether data_005_lineup_live store is accumulating elsewhere (last repo record: 1 real match, 0 time_safe versions)"
+    ]
+  },
+  "gaps": [
+    {"id": "G1", "severity": "high", "finding": "forward scheduler stalled since 2026-08-25T15:45Z (~19 days); T+24h/T+7d revision rechecks due 08-26/09-01 never executed; production forward store holds 0 time_safe matches", "action": "reported only; not fixed (per instructions)"},
+    {"id": "G2", "severity": "medium", "finding": "no top-level document maps the real research program (docs/ describe only the legacy simulation engine)"},
+    {"id": "G3", "severity": "low", "finding": "root test suite needs PYTHONPATH=src or pip install -e .; otherwise 12 import errors"},
+    {"id": "G4", "severity": "low", "finding": "Phase4A ODDS-P1 negative tests partially tautological"},
+    {"id": "G5", "severity": "low", "finding": "scheduler treats Understat local datetimes as UTC (documented caveat); window boundaries may shift hours"},
+    {"id": "G6", "severity": "low", "finding": "frozen 2B mis-namespaces VCH/VCD/VCA (VC pre-closing) into closing dict; excluded via registry; frozen asset intentionally not modified"}
+  ],
+  "conclusion": [
+    "Phase 3B-5.3-P1 report chain is consistent with real engineering; no fabricated PASS found; FAIL/UNKNOWN honestly recorded.",
+    "Sole major gap G1: forward pipeline stalled with 0 time_safe matches - Forward Validation route currently has no usable data.",
+    "Frozen fingerprint unchanged; leakage suites re-verified live; no unauthorized wiring exists.",
+    "Minimal prediction module may proceed on M4/O2 reuse with signal status management only (no probability blending)."
+  ]
+}

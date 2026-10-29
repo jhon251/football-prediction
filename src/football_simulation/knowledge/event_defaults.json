@@ -1,0 +1,94 @@
+{
+  "name": "event_defaults_v1",
+  "version": 1,
+  "attack": {
+    "base_intensity": 0.132,
+    "outcomes": {
+      "shot": 0.545,
+      "big_chance": 0.085,
+      "corner": 0.145,
+      "free_kick": 0.080,
+      "foul_conceded_by_opponent": 0.060,
+      "defensive_error_opponent": 0.040,
+      "penalty": 0.009,
+      "nothing": 0.033
+    },
+    "shot_quality_mean": 0.062,
+    "shot_quality_sigma": 0.35,
+    "max_xg": 0.85,
+    "p_on_target_base": 0.34,
+    "counter_shot_quality_bonus": 0.04,
+    "big_chance_xg_mean": 0.23
+  },
+  "fouls": {
+    "base_rate_per_minute": 0.132,
+    "p_yellow_given_foul": 0.17,
+    "p_direct_red_given_foul": 0.004,
+    "p_second_yellow_given_foul": 0.06
+  },
+  "penalty": {
+    "xg": 0.76
+  },
+  "injury": {
+    "base_rate_per_minute": 0.0016,
+    "severe_probability": 0.30,
+    "force_sub_threshold": 0.72,
+    "min_minute": 1
+  },
+  "errors": {
+    "p_keeper_error_given_shot": 0.004,
+    "p_own_goal_given_defensive_error": 0.06,
+    "keeper_error_goal_probability": 0.62
+  },
+  "var": {
+    "p_review_penalty": 0.55,
+    "p_review_goal": 0.28,
+    "p_review_red_card": 0.50,
+    "p_overturn_penalty": 0.28,
+    "p_overturn_goal": 0.07,
+    "p_overturn_red_card": 0.12
+  },
+  "added_time": {
+    "first_half_base": 1.0,
+    "second_half_base": 3.0,
+    "per_substitution": 0.3,
+    "per_goal": 0.3,
+    "per_injury": 0.6,
+    "min_extra": 1,
+    "max_extra": 8
+  },
+  "momentum": {
+    "goal_shift": 0.30,
+    "big_chance_shift": 0.08,
+    "shot_shift": 0.02,
+    "decay_per_minute": 0.965,
+    "mean_reversion": 0.03,
+    "halftime_reset": 0.5
+  },
+  "fatigue": {
+    "base_rate_per_minute": 0.0065,
+    "tempo_multiplier": 1.0,
+    "fatigue_sensitivity_cap": 1.5
+  },
+  "possession": {
+    "inertia": 0.85,
+    "noise": 0.035
+  },
+  "dependency_rules": [
+    {"event_type": "goal", "max_per_match": 9, "max_per_minute": 2, "cooldown_minutes": 1},
+    {"event_type": "big_chance", "max_per_match": 10, "max_per_minute": 2},
+    {"event_type": "shot", "max_per_match": 50, "max_per_minute": 4},
+    {"event_type": "corner", "max_per_match": 30, "max_per_minute": 2},
+    {"event_type": "free_kick", "max_per_match": 26, "max_per_minute": 3},
+    {"event_type": "yellow_card", "max_per_match": 14, "max_per_minute": 2, "cooldown_minutes": 1},
+    {"event_type": "second_yellow", "max_per_match": 2, "max_per_team": 1, "max_per_minute": 1},
+    {"event_type": "red_card", "max_per_match": 4, "max_per_team": 2, "max_per_minute": 1, "cooldown_minutes": 10},
+    {"event_type": "penalty", "max_per_match": 4, "max_per_team": 2, "max_per_minute": 1, "cooldown_minutes": 8},
+    {"event_type": "injury", "max_per_match": 6, "max_per_team": 3, "max_per_minute": 1},
+    {"event_type": "substitution", "max_per_match": 10, "max_per_team": 5, "max_per_minute": 2},
+    {"event_type": "var_review", "max_per_match": 6, "max_per_minute": 1},
+    {"event_type": "own_goal", "max_per_match": 2, "max_per_minute": 1},
+    {"event_type": "goalkeeper_error", "max_per_match": 3, "max_per_minute": 1},
+    {"event_type": "defensive_error", "max_per_match": 12, "max_per_minute": 2}
+  ]
+}

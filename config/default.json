@@ -1,0 +1,45 @@
+{
+  "note": "V1 default configuration. Simulation counts, thresholds and weights are never hardcoded in code.",
+  "simulation": {
+    "default_runs": 10000,
+    "seed": 12345,
+    "keep_events": false,
+    "convergence_threshold": 0.005,
+    "convergence_runs": [1000, 5000, 10000, 50000],
+    "possession_inertia": 0.85,
+    "possession_noise": 0.035
+  },
+  "director": {
+    "freeze": true,
+    "run_convergence": false,
+    "run_counterfactuals": false,
+    "counterfactual_runs": 2000
+  },
+  "learning": {
+    "store_path": "learning_store.json"
+  },
+  "real_data_ready": {
+    "status": false,
+    "note": "REAL_DATA_READY stays false until every gate below is completed and audited. Never set true just because unit tests pass.",
+    "required_gates": [
+      "real_data_provider",
+      "historical_data",
+      "historical_backtest",
+      "leakage_audit",
+      "calibration_test",
+      "brier_score",
+      "log_loss",
+      "roi_simulation",
+      "baseline_comparison"
+    ],
+    "completed_gates": []
+  },
+  "validation": {
+    "default_runs_per_check": 400,
+    "seed": 2024
+  },
+  "api": {
+    "host": "127.0.0.1",
+    "port": 8000
+  }
+}

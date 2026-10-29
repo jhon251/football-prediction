@@ -1,0 +1,17 @@
+{
+  "note": "SYNTHETIC MOCK DATA",
+  "weather": [
+    {
+      "match_id": "match-demo-001",
+      "venue": "Emirates Stadium",
+      "temperature_c": 21.0,
+      "humidity": 0.55,
+      "rain": 0.1,
+      "wind": 0.2,
+      "pitch_condition": 0.9,
+      "altitude_m": 35,
+      "forecast_at": "2026-08-20T12:30:00+00:00",
+      "known": true
+    }
+  ]
+}

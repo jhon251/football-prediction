@@ -1,0 +1,526 @@
+{
+ "files": [
+  {
+   "file": "E015.csv",
+   "file_season": "2015-16",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "E016.csv",
+   "file_season": "2016-17",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "E017.csv",
+   "file_season": "2017-18",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "E018.csv",
+   "file_season": "2018-19",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "E019.csv",
+   "file_season": "2019-20",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "E020.csv",
+   "file_season": "2020-21",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "E021.csv",
+   "file_season": "2021-22",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "E022.csv",
+   "file_season": "2022-23",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "E023.csv",
+   "file_season": "2023-24",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "E024.csv",
+   "file_season": "2024-25",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "E025csv.csv",
+   "file_season": "2025-26",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "sp115.csv",
+   "file_season": "2015-16",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "sp116.csv",
+   "file_season": "2016-17",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "sp117.csv",
+   "file_season": "2017-18",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "sp118.csv",
+   "file_season": "2018-19",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "sp119.csv",
+   "file_season": "2019-20",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "sp120.csv",
+   "file_season": "2020-21",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "X21~22.csv",
+   "file_season": "2021-22",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "X22~23.csv",
+   "file_season": "2022-23",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "X23~24.csv",
+   "file_season": "2023-24",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "sp124.csv",
+   "file_season": "2024-25",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "sp125.csv",
+   "file_season": "2025-26",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "I115.csv",
+   "file_season": "2015-16",
+   "rows": 381,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "I116.csv",
+   "file_season": "2016-17",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "I117.csv",
+   "file_season": "2017-18",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "I118.csv",
+   "file_season": "2018-19",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "I119.csv",
+   "file_season": "2019-20",
+   "rows": 380,
+   "mismatch_rows": 10,
+   "mismatch_rate": 0.0263,
+   "mismatches": [
+    {
+     "row": 372,
+     "date": "2020-08-01",
+     "home": "Brescia",
+     "away": "Sampdoria",
+     "date_season": "2020-21",
+     "file_season": "2019-20"
+    },
+    {
+     "row": 373,
+     "date": "2020-08-01",
+     "home": "Atalanta",
+     "away": "Inter",
+     "date_season": "2020-21",
+     "file_season": "2019-20"
+    },
+    {
+     "row": 374,
+     "date": "2020-08-01",
+     "home": "Juventus",
+     "away": "Roma",
+     "date_season": "2020-21",
+     "file_season": "2019-20"
+    },
+    {
+     "row": 375,
+     "date": "2020-08-01",
+     "home": "Milan",
+     "away": "Cagliari",
+     "date_season": "2020-21",
+     "file_season": "2019-20"
+    },
+    {
+     "row": 376,
+     "date": "2020-08-01",
+     "home": "Napoli",
+     "away": "Lazio",
+     "date_season": "2020-21",
+     "file_season": "2019-20"
+    },
+    {
+     "row": 377,
+     "date": "2020-08-02",
+     "home": "Spal",
+     "away": "Fiorentina",
+     "date_season": "2020-21",
+     "file_season": "2019-20"
+    },
+    {
+     "row": 378,
+     "date": "2020-08-02",
+     "home": "Bologna",
+     "away": "Torino",
+     "date_season": "2020-21",
+     "file_season": "2019-20"
+    },
+    {
+     "row": 379,
+     "date": "2020-08-02",
+     "home": "Genoa",
+     "away": "Verona",
+     "date_season": "2020-21",
+     "file_season": "2019-20"
+    },
+    {
+     "row": 380,
+     "date": "2020-08-02",
+     "home": "Lecce",
+     "away": "Parma",
+     "date_season": "2020-21",
+     "file_season": "2019-20"
+    },
+    {
+     "row": 381,
+     "date": "2020-08-02",
+     "home": "Sassuolo",
+     "away": "Udinese",
+     "date_season": "2020-21",
+     "file_season": "2019-20"
+    }
+   ]
+  },
+  {
+   "file": "I120.csv",
+   "file_season": "2020-21",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "I121.csv",
+   "file_season": "2021-22",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "I122.csv",
+   "file_season": "2022-23",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "I123.csv",
+   "file_season": "2023-24",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "I124.csv",
+   "file_season": "2024-25",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "I125.csv",
+   "file_season": "2025-26",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D115.csv",
+   "file_season": "2015-16",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D116.csv",
+   "file_season": "2016-17",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D117.csv",
+   "file_season": "2017-18",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D118.csv",
+   "file_season": "2018-19",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D119.csv",
+   "file_season": "2019-20",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D120.csv",
+   "file_season": "2020-21",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D121.csv",
+   "file_season": "2021-22",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D122.csv",
+   "file_season": "2022-23",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D123.csv",
+   "file_season": "2023-24",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D124.csv",
+   "file_season": "2024-25",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "D125.csv",
+   "file_season": "2025-26",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F115.csv",
+   "file_season": "2015-16",
+   "rows": 381,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F116.csv",
+   "file_season": "2016-17",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F117.csv",
+   "file_season": "2017-18",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F118.csv",
+   "file_season": "2018-19",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F119.csv",
+   "file_season": "2019-20",
+   "rows": 279,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F120.csv",
+   "file_season": "2020-21",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F121.csv",
+   "file_season": "2021-22",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F122.csv",
+   "file_season": "2022-23",
+   "rows": 380,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F123.csv",
+   "file_season": "2023-24",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F124.csv",
+   "file_season": "2024-25",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  },
+  {
+   "file": "F125.csv",
+   "file_season": "2025-26",
+   "rows": 306,
+   "mismatch_rows": 0,
+   "mismatch_rate": 0.0,
+   "mismatches": []
+  }
+ ],
+ "total_mismatches": 10
+}

@@ -1,0 +1,133 @@
+{
+  "note": "SYNTHETIC MOCK DATA",
+  "injuries": [
+    {
+      "player_id": "team-ars-p08",
+      "team_id": "team-ars",
+      "injury_type": "knee",
+      "severity": 0.436,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-ars-p15",
+      "team_id": "team-ars",
+      "injury_type": "muscle",
+      "severity": 0.4,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-che-p10",
+      "team_id": "team-che",
+      "injury_type": "hamstring",
+      "severity": 0.326,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-che-p21",
+      "team_id": "team-che",
+      "injury_type": "hamstring",
+      "severity": 0.315,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-rma-p00",
+      "team_id": "team-rma",
+      "injury_type": "hamstring",
+      "severity": 0.396,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-rma-p12",
+      "team_id": "team-rma",
+      "injury_type": "ankle",
+      "severity": 0.828,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-bar-p20",
+      "team_id": "team-bar",
+      "injury_type": "knee",
+      "severity": 0.681,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-bay-p06",
+      "team_id": "team-bay",
+      "injury_type": "knee",
+      "severity": 0.707,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-bvb-p12",
+      "team_id": "team-bvb",
+      "injury_type": "knee",
+      "severity": 0.363,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-bvb-p00",
+      "team_id": "team-bvb",
+      "injury_type": "muscle",
+      "severity": 0.378,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-int-p21",
+      "team_id": "team-int",
+      "injury_type": "ankle",
+      "severity": 0.579,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-int-p10",
+      "team_id": "team-int",
+      "injury_type": "hamstring",
+      "severity": 0.415,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-mil-p20",
+      "team_id": "team-mil",
+      "injury_type": "ankle",
+      "severity": 0.708,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-psg-p06",
+      "team_id": "team-psg",
+      "injury_type": "illness",
+      "severity": 0.534,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-om-p15",
+      "team_id": "team-om",
+      "injury_type": "ankle",
+      "severity": 0.405,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    },
+    {
+      "player_id": "team-om-p01",
+      "team_id": "team-om",
+      "injury_type": "ankle",
+      "severity": 0.369,
+      "expected_return": "2026-08-30T18:30:00+00:00",
+      "known_at": "2026-08-17T18:30:00+00:00"
+    }
+  ]
+}

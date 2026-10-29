@@ -1,0 +1,28 @@
+{
+ "dataset_id": "HIST_FD_5L_2015_2026",
+ "dataset_version": "1.1.0",
+ "status": "FROZEN_PENDING_VERIFICATION",
+ "build_timestamp": "2026-08-23T10:17:12.489467+00:00",
+ "frozen_at": "2026-08-23T10:17:29.028361+00:00",
+ "row_count": 19763,
+ "tier_counts": {
+  "TIER_DATE_ONLY": 7304,
+  "TIER_DATETIME": 12459
+ },
+ "row_checksum": "8f885fbcc38aca3f4ea0b88a925b07db23244fccec7ed09b1f7cb55c45b13442",
+ "schema_fingerprint": "9daaca8fd0dcd87ccabae94203aea44de0473b22d833a0b8ef1bf2b1f13663a2",
+ "policy_version": "policy.v1",
+ "limitations": [
+  "L1",
+  "L2",
+  "L3",
+  "L4",
+  "L5"
+ ],
+ "migration": {
+  "from_version": "1.0.0",
+  "rule": "source filename season is canonical authority (supersedes date heuristic)",
+  "changed_rows": 10,
+  "evidence": "DQ_ADDENDUM_V1 correction 2 + SEASON_BOUNDARY_ADDENDUM.md"
+ }
+}

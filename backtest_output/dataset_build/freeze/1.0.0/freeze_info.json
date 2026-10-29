@@ -1,0 +1,22 @@
+{
+ "dataset_id": "HIST_FD_5L_2015_2026",
+ "dataset_version": "1.0.0",
+ "status": "FROZEN_PENDING_VERIFICATION",
+ "build_timestamp": "2026-08-23T09:47:29.768798+00:00",
+ "frozen_at": "2026-08-23T09:48:16.232659+00:00",
+ "row_count": 19763,
+ "tier_counts": {
+  "TIER_DATE_ONLY": 7304,
+  "TIER_DATETIME": 12459
+ },
+ "row_checksum": "9c0b2df9f9ee473f889bfcdf32f942932dbeca1ce3256cd50041b072c42316ea",
+ "schema_fingerprint": "9daaca8fd0dcd87ccabae94203aea44de0473b22d833a0b8ef1bf2b1f13663a2",
+ "policy_version": "policy.v1",
+ "limitations": [
+  "L1",
+  "L2",
+  "L3",
+  "L4",
+  "L5"
+ ]
+}

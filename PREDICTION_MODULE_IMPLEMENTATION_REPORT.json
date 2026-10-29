@@ -1,0 +1,58 @@
+{
+  "report": {
+    "date": "2026-09-13",
+    "module": "src/football_prediction v0.1.0",
+    "spec": "PREDICTION_MODULE_SPEC.md",
+    "matrix": "PREDICTION_MATRIX.md",
+    "audit_basis": "CURRENT_SYSTEM_AUDIT.md",
+    "overall_status": "IMPLEMENTED_AND_VERIFIED"
+  },
+  "deliverables": {
+    "algorithm_reuse_layer": {"path": "src/football_prediction/market.py", "status": "done", "note": "shin solver + M4/M2/O2/O4 with recorded fallback chains"},
+    "signal_status_layer": {"path": "src/football_prediction/signals.py", "status": "done", "note": "gating only; never modifies probabilities"},
+    "frozen_provenance_guard": {"path": "src/football_prediction/provenance.py", "status": "done", "note": "STOP on fingerprint drift"},
+    "schema": {"path": "src/football_prediction/schema.py", "status": "done"},
+    "orchestrator": {"path": "src/football_prediction/predictor.py", "status": "done", "note": "state machine + leakage guards + descriptive uncertainty/confidence"},
+    "cli": {"path": "src/football_prediction/cli.py", "status": "done", "note": "predict (status exit codes) + self-check"},
+    "tests": {"path": "tests/prediction/", "status": "done", "n_tests": 40, "result": "OK"},
+    "demo_artifacts": {"path": "backtest_output/experiments/prediction_module_v0/", "status": "done"},
+    "registry_append": {"path": "backtest_output/experiments/prediction_module_v0/experiment_registry_append.jsonl", "n_entries": 6, "status": "done"}
+  },
+  "untouched": ["src/football_simulation/**", "backtest_output/dataset_build/freeze/** (fingerprint re-verified unchanged)", "all existing phase directories and registries"],
+  "verification": {
+    "prediction_tests": {"n": 40, "result": "OK"},
+    "full_repo_suite": {"result": "OK with PYTHONPATH=src (244 legacy + 40 new)", "note": "without PYTHONPATH 12 legacy backtest modules ImportError (audit gap G3, environment not code)"},
+    "real_data_equivalence": {"rows": 3504, "mismatches": 0, "comparison": "predict_match() vs phase4a M4/O2 direct computation on entire frozen v1.1.0 Split-A test set", "tolerance": "<1e-9", "frozen_dataset_sha256": "8f885fbcc38aca3f4ea0b88a925b07db23244fccec7ed09b1f7cb55c45b13442"},
+    "cli_demo_valid": {"exit_code": 0, "overall_status": "VALID", "ftr_method": "M4", "ou25_method": "O2", "signals": "AVAILABLE_NOT_VALIDATED, signals_used_in_prediction=false"},
+    "cli_demo_no_odds": {"exit_code": 1, "overall_status": "INSUFFICIENT_DATA", "probabilities": null},
+    "self_check": {"verified": true}
+  },
+  "final_answers": {
+    "market_prediction_runnable": true,
+    "agent_exists": false,
+    "completion_by_matrix_mode_b": {
+      "market_baseline": "implemented+verified (v0 scope complete)",
+      "market_plus_external_signal_candidate": "status management only; no usable signal data (forward store time_safe=0)",
+      "validated_signal_model": "not implemented (forbidden without pre-registered authorization)",
+      "agent_ensemble": "not implemented (forbidden)"
+    },
+    "inputs_that_can_really_predict": ["PRE_CLOSING multi-book odds for FTR (M4; M2 fallback)", "PRE_CLOSING B365 over/under 2.5 (O2; O4 multi-book fallback)"],
+    "inputs_that_return_unknown_or_insufficient": ["no odds -> INSUFFICIENT_DATA", "missing retrieved_at -> time_safe UNKNOWN -> CONDITIONAL", "missing signal timestamps -> UNKNOWN (never inferred)", "unparseable kickoff / closing context / label fields -> REJECTED", "frozen fingerprint drift -> STOP"],
+    "understat_admission_conditions": "forward namespace + dq_status=time_safe + retrieved_at<kickoff_utc + DQ pass -> candidate (AVAILABLE_NOT_VALIDATED); after pre-registered increment gates (>=300 time_safe/league-season, complete season, dLL>=0.003, direction stability, max|window dLL|<=0.02, AUC non-inferior, leakage PASS) + validated registry entry -> TIME_SAFE_VALIDATED; historical retrospective permanently excluded",
+    "hard_gates_to_final_agent": ["G1: revive forward scheduler (stalled since 2026-08-25, 0/300 time_safe)", "complete first forward season (5 leagues x >=300 time_safe)", "revision audits (T+24h/T+7d) without major drift", "pre-registered increment experiment passing all gates with registry records", "optional: lineup forward >=150 time_safe/league-season", "then Agent/Ensemble design under new pre-registration, always benchmarked against M4/O2"]
+  },
+  "known_limitations": [
+    "uncertainty/confidence are descriptive metrics, not model posteriors; confidence is not correctness probability",
+    "OU25 primary path requires B365 pair; O4 fallback differs slightly (4A n=3371)",
+    "retrieved_at is caller-declared; module checks consistency only",
+    "no HTTP API (CLI + Python API satisfy the minimal scope)"
+  ],
+  "fixes_during_implementation": [
+    "book_dispersion_max: cross-leg global extreme range -> per-leg spread maximum (regression-tested)",
+    "C-suffix guard: endswith('C') misflagged legitimate book VC -> precise rule (de-C'd code in registered set); regression-tested"
+  ],
+  "unfixed_reported_gaps": [
+    {"id": "G1", "note": "forward scheduler stalled since 2026-08-25T15:45Z; revision rechecks never executed; 0 time_safe matches; restarting requires authorization"},
+    {"id": "G3", "note": "root suite needs PYTHONPATH=src or pip install -e ."}
+  ]
+}

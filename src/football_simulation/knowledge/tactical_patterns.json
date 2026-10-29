@@ -1,0 +1,170 @@
+{
+  "kb_id": "kb-tactical-patterns-v1",
+  "name": "tactical_patterns_v1",
+  "version": 1,
+  "rules": [
+    {
+      "rule_id": "TP_HIGH_PRESS_VS_WEAK_BUILDUP",
+      "name": "high_press_vs_weak_buildup",
+      "category": "tactical_patterns",
+      "description": "A high-pressing team against a side with weak build-up play wins the pressing duel and creates chances high up the pitch.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.55,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "home_style.pressing_style", "op": "eq", "value": "high_press"},
+        {"field": "away_style.build_up_style", "op": "in", "value": ["direct", "long_ball"]}
+      ]},
+      "effects": [
+        {"target": "home_pressing_success_probability", "op": "add", "value": 0.15, "confidence": 0.55, "reason": "high press against weak build-up"},
+        {"target": "home_chance_creation_modifier", "op": "add", "value": 0.12, "confidence": 0.50, "reason": "high turnovers"},
+        {"target": "away_transition_risk", "op": "add", "value": 0.12, "confidence": 0.50, "reason": "pressured build-up"}
+      ],
+      "tags": ["pressing", "build_up"],
+      "active": true
+    },
+    {
+      "rule_id": "TP_LOW_BLOCK_VS_POSSESSION",
+      "name": "low_block_vs_possession",
+      "category": "tactical_patterns",
+      "description": "A deep low block reduces the possession side's chance quality, but concedes territory and possession share.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.55,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "home_style.pressing_style", "op": "eq", "value": "low_block"},
+        {"field": "away_style.possession_preference", "op": "gt", "value": 0.6}
+      ]},
+      "effects": [
+        {"target": "away_chance_creation_modifier", "op": "add", "value": -0.10, "confidence": 0.55, "reason": "low block compresses space"},
+        {"target": "away_possession_modifier", "op": "add", "value": 0.10, "confidence": 0.55, "reason": "territory conceded"},
+        {"target": "home_transition_risk", "op": "add", "value": 0.08, "confidence": 0.45, "reason": "breaks after turnovers"}
+      ],
+      "tags": ["low_block", "possession"],
+      "active": true
+    },
+    {
+      "rule_id": "TP_COUNTER_VS_HIGH_LINE",
+      "name": "counter_attack_vs_high_line",
+      "category": "tactical_patterns",
+      "description": "A strong counter-attacking team punishes a high defensive line with space behind it.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.55,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "home_style.counter_attack_strength", "op": "gt", "value": 0.65},
+        {"field": "away_style.defensive_line", "op": "gt", "value": 0.6}
+      ]},
+      "effects": [
+        {"target": "home_chance_creation_modifier", "op": "add", "value": 0.13, "confidence": 0.55, "reason": "space behind the high line"},
+        {"target": "home_counter_shot_quality_bonus", "op": "add", "value": 0.05, "confidence": 0.50, "reason": "counter chances are high quality"},
+        {"target": "away_transition_risk", "op": "add", "value": 0.14, "confidence": 0.50, "reason": "exposed high line"}
+      ],
+      "tags": ["counter_attack", "defensive_line"],
+      "active": true
+    },
+    {
+      "rule_id": "TP_WING_ATTACK_VS_NARROW",
+      "name": "wing_attack_vs_narrow_defense",
+      "category": "tactical_patterns",
+      "description": "A wing-oriented attack finds space against a narrow defensive shape.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.45,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "home_style.wing_attack_preference", "op": "gt", "value": 0.6},
+        {"field": "away_style.central_attack_preference", "op": "lt", "value": 0.45}
+      ]},
+      "effects": [
+        {"target": "home_chance_creation_modifier", "op": "add", "value": 0.08, "confidence": 0.45, "reason": "wide space available"},
+        {"target": "home_crossing_modifier", "op": "add", "value": 0.08, "confidence": 0.45, "reason": "crossing lanes open"}
+      ],
+      "tags": ["wing_play"],
+      "active": true
+    },
+    {
+      "rule_id": "TP_THREE_CB_VS_TWO_STRIKERS",
+      "name": "three_cb_vs_two_strikers",
+      "category": "tactical_patterns",
+      "description": "Three center backs match up well against two strikers and reduce central danger.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.50,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "home_style.preferred_formation", "op": "in", "value": ["3-5-2", "3-4-3", "5-3-2", "3-4-2-1", "5-4-1"]},
+        {"field": "away_style.preferred_formation", "op": "contains", "value": "4-4-2"}
+      ]},
+      "effects": [
+        {"target": "away_chance_creation_modifier", "op": "add", "value": -0.07, "confidence": 0.50, "reason": "central overload vs two strikers"},
+        {"target": "home_chance_creation_modifier", "op": "add", "value": 0.06, "confidence": 0.45, "reason": "wing-back freedom"}
+      ],
+      "tags": ["formations"],
+      "active": true
+    },
+    {
+      "rule_id": "TP_INVERTED_FB_VS_WIDE_PRESS",
+      "name": "inverted_fullbacks_vs_wide_press",
+      "category": "tactical_patterns",
+      "description": "Inverted fullbacks give central overloads but leave wide areas to a wide press.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.40,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "home_style.build_up_style", "op": "eq", "value": "positional"},
+        {"field": "away_style.pressing_style", "op": "eq", "value": "high_press"}
+      ]},
+      "effects": [
+        {"target": "home_transition_risk", "op": "add", "value": 0.07, "confidence": 0.40, "reason": "wide pressing traps"},
+        {"target": "away_pressing_success_probability", "op": "add", "value": 0.06, "confidence": 0.40, "reason": "trapping inverted shape"}
+      ],
+      "tags": ["build_up", "pressing"],
+      "active": true
+    },
+    {
+      "rule_id": "TP_SET_PIECE_EDGE",
+      "name": "set_piece_strength_edge",
+      "category": "tactical_patterns",
+      "description": "A team with a strong set-piece edge gains extra danger from corners and free kicks.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.50,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "home_style.set_piece_strength", "op": "gt", "value": 0.65},
+        {"field": "away_style.set_piece_defense", "op": "lt", "value": 0.45}
+      ]},
+      "effects": [
+        {"target": "home_set_piece_xg_bonus", "op": "add", "value": 0.04, "confidence": 0.50, "reason": "set-piece mismatch"},
+        {"target": "home_chance_creation_modifier", "op": "add", "value": 0.04, "confidence": 0.45, "reason": "dead-ball threat"}
+      ],
+      "tags": ["set_pieces"],
+      "active": true
+    },
+    {
+      "rule_id": "TP_MIDFIELD_QUALITY_GAP",
+      "name": "midfield_quality_gap",
+      "category": "tactical_patterns",
+      "description": "A significant midfield quality gap drives possession and chance creation.",
+      "status": "tentative",
+      "source": "internal_default_v1",
+      "confidence": 0.50,
+      "evidence_count": 0,
+      "condition": {"all": [
+        {"field": "home_style.midfield_strength", "op": "gt", "value": 0.62},
+        {"field": "away_style.midfield_strength", "op": "lt", "value": 0.42}
+      ]},
+      "effects": [
+        {"target": "home_possession_modifier", "op": "add", "value": 0.07, "confidence": 0.50, "reason": "midfield control"},
+        {"target": "home_chance_creation_modifier", "op": "add", "value": 0.07, "confidence": 0.50, "reason": "midfield dominance"}
+      ],
+      "tags": ["midfield"],
+      "active": true
+    }
+  ]
+}

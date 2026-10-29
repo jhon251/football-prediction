@@ -1,0 +1,16 @@
+{
+  "note": "SYNTHETIC MOCK DATA for development and testing only. Team names are real club identities; every numeric value is seeded synthetic data, NOT real statistics.",
+  "competitions": [
+    {"competition_id": "premier_league", "name": "Premier League", "short_name": "EPL", "country": "England", "tier": 1, "kind": "league", "team_ids": ["team-ars", "team-che"]},
+    {"competition_id": "la_liga", "name": "La Liga", "short_name": "LaLiga", "country": "Spain", "tier": 1, "kind": "league", "team_ids": ["team-rma", "team-bar"]},
+    {"competition_id": "bundesliga", "name": "Bundesliga", "short_name": "BUN", "country": "Germany", "tier": 1, "kind": "league", "team_ids": ["team-bay", "team-bvb"]},
+    {"competition_id": "serie_a", "name": "Serie A", "short_name": "SA", "country": "Italy", "tier": 1, "kind": "league", "team_ids": ["team-int", "team-mil"]},
+    {"competition_id": "ligue_1", "name": "Ligue 1", "short_name": "L1", "country": "France", "tier": 1, "kind": "league", "team_ids": ["team-psg", "team-om"]},
+    {"competition_id": "primeira_liga", "name": "Primeira Liga", "short_name": "PL", "country": "Portugal", "tier": 1, "kind": "league", "team_ids": []},
+    {"competition_id": "eredivisie", "name": "Eredivisie", "short_name": "ERE", "country": "Netherlands", "tier": 1, "kind": "league", "team_ids": []},
+    {"competition_id": "champions_league", "name": "UEFA Champions League", "short_name": "UCL", "country": "Europe", "tier": 0, "kind": "cup", "team_ids": []},
+    {"competition_id": "europa_league", "name": "UEFA Europa League", "short_name": "UEL", "country": "Europe", "tier": 0, "kind": "cup", "team_ids": []},
+    {"competition_id": "conference_league", "name": "UEFA Conference League", "short_name": "UECL", "country": "Europe", "tier": 0, "kind": "cup", "team_ids": []},
+    {"competition_id": "national_teams", "name": "National Teams", "short_name": "INT", "country": "World", "tier": 0, "kind": "international", "team_ids": []}
+  ]
+}

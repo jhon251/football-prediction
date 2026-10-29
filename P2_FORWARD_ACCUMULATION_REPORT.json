@@ -1,0 +1,67 @@
+{
+  "report": {
+    "id": "P2_FORWARD_ACCUMULATION",
+    "phase": "5.3-P1-C",
+    "date_utc": "2026-09-13T05:50:00Z",
+    "scope_frozen": ["no increment experiment", "no Understat LL/AUC", "no M4/O2 changes", "no xG into probabilities", "no Agent/Ensemble", "no conclusions from insufficient samples", "no retro backfill", "no betting/ROI/EV/stake"],
+    "deliverables": {
+      "monitor": "forward_pipeline/monitor.py (read-only over forward store)",
+      "dashboard": "FORWARD_ACCUMULATION_STATUS.md/.json (auto-regenerated)",
+      "monitor_task": "P53P1-ForwardMonitor (hourly, exit 5 on STOP, State=Ready)",
+      "monitor_tests": "tests/understat_forward/test_monitor.py (12 tests; suite 29/29 OK)",
+      "registry_appends": 5
+    }
+  },
+  "provenance_mapping": {
+    "match_id_league_season": "norm records",
+    "kickoff_utc": "kickoff_utc (frozen join; null for 2026-27 by design) + kickoff_provider_datetime (provider-naive-UTC convention, explicitly logged)",
+    "retrieved_at": "sidecar + norm + registry (three-way consistent)",
+    "raw_response_and_sha256": "raw/*.json byte-exact + sidecar + registry sha verification",
+    "parser_version": "sidecar + registry",
+    "capture_window": "window_status (sidecar + norm + registry)",
+    "dq_classification": "dq_status with controlled vocabulary",
+    "namespace": "dq_namespace=forward (13/13 verified)",
+    "registry_reference": "capture_id -> data/registry.jsonl chained entries"
+  },
+  "strict_time_safety_rule": {
+    "definition": "valid forward sample for target kickoff K = dq_status==time_safe AND namespace==forward AND retrieved_at<K",
+    "content_never_assumed_pre_match": "upcoming rows carrying any xG/goals field -> STOP (UPCOMING_WITH_RESULT_FIELDS); result row with retrieved_at<own kickoff -> STOP (TIME_SAFE_PRE_KICKOFF, impossible data)"
+  },
+  "continuous_dq": {
+    "checks": ["time_safe/window_late/no_results aggregation", "missing timestamps", "malformed responses (parse_error + field scan)", "duplicates (same window non-recheck; duplicate match_id)", "revision events", "parser/schema anomalies (14 required fields)", "provider anomalies", "namespace/retro contamination", "generated_at/published_at inference guard", "frozen fingerprint", "scheduler heartbeat"],
+    "stop_conditions_implemented": ["FROZEN_DRIFT", "NAMESPACE_CONTAMINATION", "RETRO_IN_STORE", "GENPUB_INFERRED", "TIME_SAFE_PRE_KICKOFF", "UPCOMING_WITH_RESULT_FIELDS", "PROVENANCE_LOSS", "DUPLICATE_WINDOW_WRITE(non-recheck via warn+runs cross-check)", "MISSING_PROVENANCE", "TIMESTAMP_MISSING", "DQ_VOCABULARY", "SCHEDULER_STALLED", "SCHEDULER_STOP_FLAG"],
+    "current_triggers": 0
+  },
+  "revision_audit": {
+    "active_schedules": "5 leagues (t24 from 2026-09-14T04:59Z per league, t7d +7d); refreshed per window capture with R3-fixed semantics",
+    "executed_so_far": "3 out-of-schedule covered_by_capture entries (G1 overdue, labeled pre_registered_points_missed=true, latencies 427.0h/283.0h) - observational only, NOT pre-registered results",
+    "old_new_hash": "monitor attaches recheck_raw_sha256 + baseline_raw_sha256 per execution; raw hashes differ trivially (upcoming fixtures change); semantic comparison = n_revision_events / revisions value diffs",
+    "revision_drift": {"events": 0, "max_abs_xg_delta": 0.0, "major": false}
+  },
+  "sample_progress_at_2026_09_13T05_46Z": {
+    "E0": {"seen": 37, "time_safe": 0, "window_late": 37, "season_cov_pct": 9.7, "gap_to_300": 300, "gap_to_full_season": 343},
+    "SP1": {"seen": 46, "time_safe": 0, "window_late": 46, "season_cov_pct": 12.1, "gap_to_300": 300, "gap_to_full_season": 334},
+    "I1": {"seen": 33, "time_safe": 0, "window_late": 33, "season_cov_pct": 8.7, "gap_to_300": 300, "gap_to_full_season": 347},
+    "D1": {"seen": 25, "time_safe": 0, "window_late": 25, "season_cov_pct": 8.2, "gap_to_300": 300, "gap_to_full_season": 281},
+    "F1": {"seen": 33, "time_safe": 0, "window_late": 33, "season_cov_pct": 10.8, "gap_to_300": 300, "gap_to_full_season": 347},
+    "threshold_note": "300/league-season and complete-season gates unchanged; 250 window_late stock records are NOT countable"
+  },
+  "completion_criteria": {
+    "1_scheduler_stable": true,
+    "2_real_time_safe_produced": "PENDING (first real window ~2026-09-13T20:30Z; none existed at recovery time; none fabricated)",
+    "3_five_leagues_forming_valid_samples": "PENDING (valid samples currently 0)",
+    "4_provenance_dq_auditable": true,
+    "5_rechecks_on_new_schedule": "ARMED (first due 2026-09-14T04:59Z; on-time execution to be verified)",
+    "6_no_contamination": true,
+    "7_frozen_and_baseline_untouched": true,
+    "8_report_and_registry": true,
+    "9_sample_gap_documented": true
+  },
+  "phase_completion_declared": false,
+  "phase_completion_reason": "accumulation criteria (#2/#3 and on-time execution of #5) depend on real match windows and time; infrastructure and governance complete; per pre-phase instruction no premature completion is declared and no increment experiment is started",
+  "automation": {
+    "scheduler": "daemon(600s)+watchdog running; 15-min scheduled task layer for reboots; Startup autostart pending one manual install_startup.ps1 run",
+    "monitor": "hourly scheduled task; STOP -> exit 5 visible in Task Scheduler",
+    "manual_check": ["python forward_pipeline/scheduler.py --status", "python forward_pipeline/monitor.py"]
+  }
+}

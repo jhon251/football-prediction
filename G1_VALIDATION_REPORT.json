@@ -1,0 +1,42 @@
+{
+  "report": {
+    "id": "G1_VALIDATION",
+    "date_utc": "2026-09-13T05:04:00Z",
+    "method": "offline sandbox regression (injected fetch, disposable stores) + live sandbox end-to-end + production runs + task/lock behavior observation",
+    "honesty_statement": "no in-window period existed during validation; zero real time_safe records produced or faked; all sandbox data synthetic and discarded; all production writes are real fetches, honestly labeled"
+  },
+  "validation_matrix": [
+    {"item": "scheduler start/stop", "result": "PASS", "evidence": "watchdog started daemon PID 18116; lock held/refreshed; --status heartbeat"},
+    {"item": "idempotent reruns", "result": "PASS", "evidence": "production second run 5x skip_dup, registry stays 13; sandbox T2 identical"},
+    {"item": "forward namespace negative", "result": "PASS", "evidence": "2020 season capture rejected (RuntimeError); 13/13 production sidecars dq_namespace=forward"},
+    {"item": "historical_retro rejection", "result": "PASS", "evidence": "guard untouched; production store historical_retro=0"},
+    {"item": "missing retrieved_at", "result": "PASS", "evidence": "pipeline always writes retrieved_at (capture-enforced); feature admissibility handled by prediction-module gate (missing->UNKNOWN->CONDITIONAL)"},
+    {"item": "retrieved_at >= kickoff", "result": "PASS", "evidence": "prediction module REJECTED (N5); scheduler window gate window_early/window_late; layers complementary"},
+    {"item": "provider time anomalies", "result": "PASS", "evidence": "schema drift -> STOP flag + no capture (T9); _parse_dt fallback documented; explicit UTC convention logged per run (T13)"},
+    {"item": "raw response hash", "result": "PASS", "evidence": "sandbox T14; production 13 entries sha256(raw)==sidecar==registry"},
+    {"item": "append-only", "result": "PASS", "evidence": "duplicate capture rejected; chained prev_capture_id intact over 13 entries"},
+    {"item": "revision audit", "result": "PASS (late points honestly labeled)", "evidence": "E0/SP1/I1 out-of-schedule recheck: points [t24,t7d], missed={t24:true,t7d:true}, t24 latency 427.0h, t7d 283.0h, n_revision_events=0; fresh schedules: t24 2026-09-14T05:59Z, t7d 2026-09-20T05:59Z; sandbox T6 no-runaway, T7 missed-labels"},
+    {"item": "no silent failure", "result": "PASS", "evidence": "fetch failure->missing; drift->STOP; corrupted state->cycle_error with daemon survival (R6 test); 72h gap->operational_gap_detected; production gap 445.2h logged"},
+    {"item": "no fabricated matches/times", "result": "PASS", "evidence": "sandbox tests synthetic+disposable; production 5 captures are real fetches (understat.com HTTP 200) with recorded sha256"}
+  ],
+  "current_real_state": {
+    "real_time_safe_count": 0,
+    "production_registry_entries": 13,
+    "dq_totals": {"time_safe": 0, "window_late": 250, "upcoming_fixture": 4088, "historical_retro": 0},
+    "late_backfill_note": "the 5 new captures cover matchdays missed during the stall (08-26..09-12) and are permanently excluded from future validation",
+    "runtime_layers": {"scheduled_task_15min": "Ready (first run refused by daemon lock, exit 3 - double-run prevention verified)", "daemon_plus_watchdog": "running in this session", "startup_folder_autostart": "NOT installed (sandbox denied write); user must run install_startup.ps1 once; scheduled-task layer maintains capture across reboots meanwhile"}
+  },
+  "next_real_windows": "next matchday (2026-09-13 Sunday) kickoffs + T+3h..T+6h, i.e. approx 2026-09-13T23:00Z..2026-09-14T03:00Z per league; one window per matchday thereafter",
+  "first_real_time_safe_acceptance": [
+    "run log shows captured_in_window (not captured_late)",
+    "norm records dq_status=time_safe and window_status=in_window",
+    "registry chain continues with consistent raw sha256",
+    "retrieved_at earlier than the next prediction target kickoff",
+    "accumulation counted toward >=300 time_safe per league-season with on-time T+24h/T+7d rechecks"
+  ],
+  "final_answers": {
+    "scheduler_recovered": true,
+    "real_time_safe_produced": false,
+    "revision_audit_executed": "pre-registered points missed (unrecoverable); out-of-schedule combined recheck executed and honestly labeled; fresh on-time schedules armed for all 5 leagues"
+  }
+}

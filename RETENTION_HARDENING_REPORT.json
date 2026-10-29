@@ -1,0 +1,50 @@
+{
+  "report": {
+    "id": "RETENTION_HARDENING",
+    "date_utc": "2026-09-29T15:10:00Z",
+    "nature": "infrastructure only; zero model development",
+    "frozen_dataset_sha256_unchanged": "8f885fbcc38aca3f4ea0b88a925b07db23244fccec7ed09b1f7cb55c45b13442",
+    "untouched": ["src/football_prediction (M4/O2)", "frozen experiments artifacts", "existing raw responses (append-only preserved)"]
+  },
+  "risk_adjudication": {
+    "R1": {"brief": "retention ~83%; 09-19/20 weekend 45 matches lost to 22h gap", "actual": "CONFIRMED_AND_WORSE: matchday-granular last-30d in-window retention is 7.7%-17.6% (brief's 83% used a wider denominator)"},
+    "R2": {"brief": "35 missing on 09-29", "actual": "CONFIRMED: 30x SSL UNEXPECTED_EOF + 5x WinError 10061 (connection refused), bursty"},
+    "R3": {"brief": "wake next trigger 10/11 but resume 'approx 10/3-4'", "actual": "PARTIALLY REFUTED: fresh read-only probe (2026-09-29T14:26Z, live fetch of 5 league payloads) shows resume 2026-10-10/11; brief's 10/3-4 not supported by live data; existing wake coverage aligns with actual resume (per-window checklist in WAKE_COVERAGE_CHECKLIST.json)"}
+  },
+  "task_A": {
+    "A1_wake_coverage": {"status": "DONE", "changes": "schedule_wake_triggers.py upgraded: fresh read-only probe preferred over stale captured payload (probe artifacts under probes/, never into forward store); old tasks unregistered before re-register; per-window checklist emitted with task names", "coverage": "60 wake moments through 2027-01-14; resumption round per-window verified (D1/F1 10-11 02:15, E0 05:45, I1 10-12 02:15, SP1/E0 04:15, E0 midweek 10-13 08:15); first-round coverage complete"},
+    "A2_anti_sleep": {"status": "DONE", "mechanism": "hold_awake.ps1 SetThreadExecutionState(ES_CONTINUOUS|ES_SYSTEM_REQUIRED) as paired tasks P53P1-ForwardWindowHold-01..04 (same triggers as wake, -Minutes 175 = window_start+15m to window_end+10m, ExecutionTimeLimit 4h, WakeToRun)", "scope": "window-scoped only; no全天候 power policy changes; display may sleep; manual sleep never blocked", "bugs_fixed_and_verified": ["PS 0x80000000 Int32 overflow -> [uint32] literals", "install_startup.ps1 generated broken multi-line .cmd -> single-expression rewrite, byte-level verified"]},
+    "A3_urlerror_alerting": {"status": "DONE", "config": {"MISSING_WARN_CONSECUTIVE": 3, "MISSING_STOP_CONSECUTIVE": 6, "FETCH_RETRIES": 3, "FETCH_BACKOFF_S": [5, 15]}, "monitor": "consecutive_missing_by_league() over runs-log tail; per-league >=3 -> WARN; ALL leagues >=6 -> STOP (exit 5 + dashboard STOP section); exposed in heartbeat", "scheduler": "fetch_with_retry bounded 3 attempts with backoff on both capture and recheck fetch paths; exhausted failures logged with attempt count", "tests": "tests/understat_forward/test_retention_hardening.py 9 tests; full suite 38/38 OK", "test_fix": "production runs-log assertion changed to append-only semantics (live daemon legitimately appends; shrink forbidden)"},
+    "A4_dashboard": {"status": "DONE", "definition": "matchday D retained iff exists capture with window_status=in_window covering D and retrieved_at within W(D) = max kickoff +5h..+8h (same as scheduler window)", "current_baseline_2026_09_29": {"E0": {"retention_30d": 0.091, "projected_season_end_time_safe": 71}, "SP1": {"retention_30d": 0.176, "projected": 115}, "I1": {"retention_30d": 0.077, "projected": 66}, "D1": {"retention_30d": 0.100, "projected": 55}, "F1": {"retention_30d": 0.091, "projected": 61}}, "projection_disclaimer": "extrapolation at CURRENT retention, not a promise; 300 threshold unchanged; all projections far below 300 (gap 185-245)"},
+    "A5_observation": {"status": "VERIFIED_BY_DRILL; real-window confirmation pending 2026-10-11", "drill": {"time_local": "2026-09-29T22:52:52", "result": "DrillCapture result=3 (daemon-lock refusal = double-run prevention + capture path reached lock check); DrillHold Running (SetThreadExecutionState engaged, auto-released after 2 min); trigger->hidden-run->lock->hold chain verified; drill tasks cleaned; production store untouched (53 captures)"}, "honest_limitations": ["WakeToRun wake-from-sleep is an OS guarantee, NOT tested with a real sleep event in-session (would suspend the session)", "coverage extends to 2027-01-14; re-run schedule_wake_triggers.py to extend or on fixture shifts"], "checkpoint_24h": "P53P1-Retention24hCheck registered (fires 2026-09-30 22:54 local, reruns monitor -> fresh dashboard = autonomous evidence)"}
+  },
+  "task_B": {
+    "status": "DESIGN_ONLY_DELIVERED",
+    "artifact": "FORWARD_ODDS_ACQUISITION_DESIGN.md (+ .json)",
+    "sources_reviewed": {"the_odds_api": "PREFERRED (dual-layer timestamps, free tier viable, 5 leagues)", "betfair": "CONDITIONAL fallback (jurisdiction UNKNOWN)", "oddsportal": "REJECTED-for-primary (ToS bans scraping; weak timestamp semantics)", "pinnacle": "UNKNOWN (access path)", "football_data_co_uk": "EXCLUDED (closed-source of the frozen set; no per-row timestamps - the very reason forward collection is needed)"},
+    "semantics": "forward_odds namespace; snapshot immutable; price movement != revision; retrieved_at<kickoff gate; provider last_update recorded or UNKNOWN; bookmaker->frozen-code mapping flagged as pre-registration dependency",
+    "decisions_requested": ["pick source", "API key (user)", "implementation authorization"],
+    "no_code_written": true
+  },
+  "task_C": {
+    "status": "DONE",
+    "artifacts": ["backtest_output/data_005_lineup_live/PAUSED_STATUS.md", "docs/DATA_006_LOCAL_CAPTURE_SUPERVISOR.md PAUSED pointer"],
+    "facts": "1 real match, 0 time_safe, latest manifest 2026-08-23; store fingerprint untouched",
+    "not_done_without_authorization": ["stopping supervisor process/autostart"],
+    "repair_vs_pause": "PAUSED recommended: recovery condition #1 (provable time semantics on ESPN source) cannot be met, repair is meaningless now"
+  },
+  "task_D": {
+    "status": "DONE",
+    "artifact": "README.md '研究主线地图' section: system A (sandbox, synthetic, not a predictor) vs system B (backtest_output Phase 2A->5.3, M4/O2 only validated predictor), current position, hard gates, reading guide (closes audit gap G2)"
+  },
+  "discipline": {
+    "frozen_read_only_verified": true,
+    "no_retro_admission": true,
+    "no_time_safe_fabrication": "0 captures today (break period honestly skip_dup)",
+    "no_m4_o2_or_prediction_module_changes": true,
+    "no_increment_experiment_or_probability_wiring": true,
+    "no_agent_ensemble_betting": true,
+    "threshold_300_unchanged": true,
+    "fail_unknown_honestly_recorded": ["R3 brief date contradicted by live data", "harsh retention baseline published", "wake-from-sleep untested in-session"]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "baseline": "V1.2_FROZEN",
+  "frozen_at": "2026-08-15 (session time)",
+  "status": "NO EVIDENCE OF EDGE - accepted and frozen",
+  "experiment": "EXP-REAL-EPL-BASE-001",
+  "experiment_id": "7c52c6bdfa37",
+  "artifacts": {
+    "report": "docs/EXP_REAL_EPL_BASE_001.md",
+    "outputs": "backtest_output/real_epl_base_001/",
+    "registry": "backtest_output/real_epl_base_001/experiments.jsonl",
+    "tests": "238/238 passing (python -m unittest discover -s tests)"
+  },
+  "frozen_versions": {
+    "code": "c4207b61c676e208 (recorded at experiment time; see registry entry)",
+    "data": "data/historical/epl_2025_26.json (real 2025-26 EPL, is_synthetic=false)",
+    "knowledge": "35 rules, all tentative / 0 evidence (synthetic-data firewall enforced)",
+    "parameters": "config/default.json - unchanged; no tuning performed",
+    "snapshot": "1"
+  },
+  "headline_results_380_matches": {
+    "elo": {"accuracy": 0.4711, "brier": 0.6310, "log_loss": 1.0478, "ece": 0.0152},
+    "full_system": {"accuracy": 0.4184, "brier": 0.6592, "log_loss": 1.0885, "ece": 0.0350},
+    "random": {"accuracy": 0.4263, "brier": 0.6667, "log_loss": 1.0986, "ece": 0.0}
+  },
+  "ablation_delta_brier_vs_full": {
+    "full_minus_team": 0.0048,
+    "full_minus_tactical": -0.0044,
+    "full_minus_psychology": -0.0042,
+    "full_minus_momentum": -0.0018,
+    "full_minus_referee": -0.0016,
+    "full_minus_player": 0.0
+  },
+  "frozen_constraints": [
+    "NO V1.3",
+    "no new agents",
+    "no modification of core football rules",
+    "no parameter tuning",
+    "no re-running to improve metrics"
+  ],
+  "diagnosis_questions_for_next_phase": [
+    "Why does Team contribute positively while Tactical/Psychology degrade full_system?",
+    "Is there duplicated information between agent outputs?",
+    "Are there spurious correlations / false signals?",
+    "Does the probability aggregation mechanism amplify weak signals?",
+    "Do cold start / season phases cause systematic agent failure?",
+    "Does full_system lose to Elo because the information is invalid, or because valid information is fused incorrectly?"
+  ]
+}

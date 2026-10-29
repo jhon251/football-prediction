@@ -1,0 +1,99 @@
+{
+  "matrix_version": "prediction-matrix.v1.0",
+  "date": "2026-09-13",
+  "basis": "CURRENT_SYSTEM_AUDIT.md 2026-09-13",
+  "flag_vocabulary": {
+    "implemented": "code exists and runs",
+    "verified": "passed pre-registered gates with registry entries",
+    "allow_production_prediction": "may emit final probabilities",
+    "allow_backtest": "may be used in backtest datasets",
+    "allow_final_probabilities": "may be the probability source of record",
+    "needs_additional_authorization": "requires pre-registered experiment approval"
+  },
+  "dimension_a_tasks": {
+    "FTR": {
+      "modes": {
+        "Market_Baseline_M4": {
+          "implemented": true, "verified": true, "allow_production_prediction": true,
+          "allow_backtest": true, "allow_final_probabilities": true,
+          "needs_additional_authorization": false, "evidence_level": "Evidence",
+          "output_states": ["VALID", "CONDITIONAL", "INSUFFICIENT_DATA", "REJECTED", "STOP"],
+          "refs": ["phase3b", "phase4a", "phase4d", "phase5_1a"]
+        },
+        "Market_Plus_External_Signal_Candidate": {
+          "implemented": "partial (signal status management only; signals never modify probabilities)",
+          "verified": false, "allow_production_prediction": "status_report_only",
+          "allow_backtest": false, "allow_final_probabilities": "market_pure_only",
+          "needs_additional_authorization": true, "evidence_level": "Unknown",
+          "output_states": ["CONDITIONAL", "UNKNOWN"], "refs": ["phase5_3_forward_rescope"]
+        },
+        "Validated_Signal_Model": {
+          "implemented": false, "verified": false, "allow_production_prediction": false,
+          "allow_backtest": false, "allow_final_probabilities": false,
+          "needs_additional_authorization": true, "evidence_level": "Unknown",
+          "gates_required": ["time_safe >= 300 per league-season", "complete season", "mean dLL >= 0.003", "majority windows same direction", "max |window dLL| <= 0.02", "AUC not worse than market", "leakage suite PASS"]
+        },
+        "Agent_Ensemble": {
+          "implemented": false, "verified": false, "allow_production_prediction": false,
+          "allow_backtest": false, "allow_final_probabilities": false,
+          "needs_additional_authorization": true, "evidence_level": "Unknown"
+        }
+      }
+    },
+    "OU25": {
+      "modes": {
+        "Market_Baseline_O2": {
+          "implemented": true, "verified": true, "allow_production_prediction": true,
+          "allow_backtest": true, "allow_final_probabilities": true,
+          "needs_additional_authorization": false, "evidence_level": "Evidence",
+          "output_states": ["VALID", "CONDITIONAL", "INSUFFICIENT_DATA", "REJECTED", "STOP"],
+          "refs": ["phase3b", "phase4a", "phase4d", "phase5_1a"]
+        },
+        "Market_Plus_External_Signal_Candidate": "same as FTR",
+        "Validated_Signal_Model": "same as FTR",
+        "Agent_Ensemble": "same as FTR"
+      }
+    },
+    "other_markets": {
+      "implemented": false, "verified": false, "allow_production_prediction": false,
+      "allow_backtest": false, "allow_final_probabilities": false,
+      "needs_additional_authorization": true,
+      "note": "must not pretend verified; unregistered fields in frozen 2A/2B remain UNKNOWN"
+    }
+  },
+  "dimension_c_data_states": [
+    {"state": "market_available_preclosing_time_safe", "action": "compute M4/O2", "output_state": "VALID or CONDITIONAL (fallback/timestamp missing)", "evidence_level": "Evidence"},
+    {"state": "market_missing", "action": "no computation, probabilities null", "output_state": "INSUFFICIENT_DATA", "evidence_level": "Unknown"},
+    {"state": "market_unsafe_retrieved_after_kickoff_or_closing_input", "action": "refuse", "output_state": "REJECTED", "evidence_level": "Evidence"},
+    {"state": "understat_forward_time_safe", "gate": "dq_namespace==forward AND dq_status==time_safe AND retrieved_at<kickoff_utc AND dq_pass", "action": "candidate signal record only, no probability change", "output_state": "AVAILABLE_NOT_VALIDATED", "evidence_level": "Hypothesis"},
+    {"state": "understat_historical_retro", "action": "permanently excluded from prediction", "output_state": "REJECTED", "evidence_level": "Evidence"},
+    {"state": "external_signal_unknown_timestamps", "action": "keep UNKNOWN, never infer generated_at/published_at", "output_state": "UNKNOWN", "evidence_level": "Unknown"},
+    {"state": "insufficient_data", "action": "no computation", "output_state": "INSUFFICIENT_DATA", "evidence_level": "Unknown"},
+    {"state": "leakage_detected", "action": "halt everything, report only", "output_state": "STOP", "evidence_level": "Evidence"}
+  ],
+  "dimension_d_output_states": {
+    "VALID": "baseline method hit, time-safe, complete input; real probabilities",
+    "CONDITIONAL": "fallback chain used or timestamps unknown; real probabilities + downgrade note",
+    "INSUFFICIENT_DATA": "no verified method constructible; probabilities null (never fabricated)",
+    "UNKNOWN": "input present but semantics unclear; null or baseline-only",
+    "REJECTED": "time-safety/input-safety gate failed; probabilities null",
+    "STOP": "frozen fingerprint drift or leakage detected; probabilities null + fault details"
+  },
+  "dimension_e_evidence_levels": {
+    "market_baseline_M4_O2": "Evidence",
+    "M4_over_M1_increment": "Evidence",
+    "calibration_mapping": "Evidence (CLOSED; never layered onto production predictions)",
+    "closing_odds_as_input": "Evidence (sub-threshold, CONDITIONAL, not SAFE)",
+    "understat_forward_xg_value": "Hypothesis (gates not evaluated; time_safe=0 as of 2026-09-13)",
+    "lineup_forward_signal": "Unknown",
+    "agent_beats_market_claim": "FORBIDDEN"
+  },
+  "invariants": [
+    "only Market Baseline M4/O2 may output final probabilities, always with provenance (books, devig method, shin z, timestamps, missing fields)",
+    "external signals may only change status fields, never probability fields, until all increment gates pass with pre-registered authorization",
+    "TIME_SAFE_VALIDATED may only be granted via a validated-signal registry file (none exists); no hardcoding",
+    "any fallback (M4->M2->single-book, O2->O4->single-book) is recorded and downgrades to CONDITIONAL",
+    "all missing inputs map to INSUFFICIENT_DATA/UNKNOWN with null probabilities; no random/static/default probabilities",
+    "leakage or fingerprint drift triggers STOP, report-only"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "note": "SYNTHETIC MOCK DATA",
+  "odds": [
+    {
+      "match_id": "match-demo-001",
+      "home_win": 2.03,
+      "draw": 3.74,
+      "away_win": 4.17,
+      "over_under_line": 2.5,
+      "as_of": "2026-08-20T16:30:00+00:00",
+      "bookmaker": "mockbook"
+    }
+  ]
+}
